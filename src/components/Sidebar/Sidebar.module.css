@@ -1,0 +1,75 @@
+:root {
+  --button-background-color: #EAEAEA;
+  --button-border-color: #818181;
+  --button-hover-background-color: #dedede;
+  --button-hover-border-color: #777;
+}
+
+.sidebar {
+  width: 256px;
+  background-color: #ccc;
+  text-align: center;
+  padding: 50px 35px;
+}
+
+.section {
+  margin-bottom: 60px;
+}
+
+.section_title {
+  margin-bottom: 20px;
+}
+
+.section_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.rectangle {
+  width: 80px;
+  height: 40px;
+  border: 3px solid var(--button-border-color);
+  background-color: var(--button-background-color);
+  cursor: pointer;
+}
+
+.rectangle:hover {
+  background-color: var(--button-hover-background-color);
+  border-color: var(--button-hover-border-color);
+}
+
+.triangle {
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+  border-bottom: 50px solid var(--button-border-color);
+  position: relative;
+  cursor: pointer;
+}
+
+.triangle::after {
+  display: block;
+  content: '';
+  top: 5px;
+  left: -34px;
+  position: absolute;
+  border-left: 34px solid transparent;
+  border-right: 34px solid transparent;
+  border-bottom: 42px solid var(--button-background-color);
+}
+
+.triangle:hover {
+  border-bottom-color: var(--button-hover-border-color);
+}
+
+.triangle:hover::after {
+  border-bottom-color: var(--button-hover-background-color);
+}
+
+.fill {
+  width: 75px;
+  height: 25px;
+  border: 5px solid var(--button-border-color);
+  background-color: darkorange;
+  cursor: pointer;
+}
