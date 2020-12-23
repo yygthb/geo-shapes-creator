@@ -1,4 +1,38 @@
 .content {
   flex-grow: 1;
   background-color: #EFEFEF;
+  position: relative;
+  overflow: hidden;
+}
+
+.content::after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 100vw;
+  height: 1px;
+  background-color: lightslategray;
+  top: 50%;
+}
+
+svg {
+  /* box-sizing: content-box; */
+}
+
+.triangle {
+  text-align: center;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 100px);
+}
+
+.rectangle {
+  text-align: center;
+  position: absolute;
+  top: calc(50% - 70px);
+  left: calc(50% - 100px);
+}
+
+svg.active {
+  border: 3px dashed #2F80ED;
 }

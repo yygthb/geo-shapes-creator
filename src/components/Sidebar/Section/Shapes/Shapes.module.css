@@ -19,9 +19,9 @@
 	border-right: 40px solid transparent;
   border-bottom: 50px solid var(--button-border-color); */
   
-  border-left: 39px solid transparent;
-  border-right: 39px solid transparent;
-  border-bottom: 48px solid var(--button-border-color);
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 49px solid var(--button-border-color);
 }
 
 .triangle::after {

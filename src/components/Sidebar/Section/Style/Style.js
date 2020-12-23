@@ -7,6 +7,7 @@ const Style = props => {
       <button
         className={style.fill}
         title="open pallet"
+        style={{ backgroundColor: props.activeFigure.color }}
       ></button>
     </>
   )
