@@ -4,9 +4,14 @@ import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 
 function App() {
+
+  const createFigureHandler = name => {
+    console.log('create: ', name)
+  }
+
   return (
     <main className={style.main}>
-      <Sidebar />
+      <Sidebar createFigureHandler={createFigureHandler} />
       <Content />
     </main>
   );
