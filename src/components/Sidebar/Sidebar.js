@@ -11,7 +11,10 @@ const Sidebar = props => {
         <Shapes createFigureHandler={props.createFigureHandler} />
       </Section>
       <Section title="Style">
-        <Style activeFigure={props.activeFigure} />
+        <Style
+          activeFigure={props.activeFigure}
+          colorPickerOpen={props.colorPickerOpen}
+        />
       </Section>
     </div>
   )

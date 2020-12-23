@@ -39,11 +39,17 @@ function App() {
     setActiveFigure(defaultFigure)
   }
 
+  // open color picker on button click
+  const colorPickerOpen = () => {
+    console.log('open color picker');
+  }
+
   return (
     <main className={style.main}>
       <Sidebar
         createFigureHandler={createFigureHandler}
         activeFigure={activeFigure}
+        colorPickerOpen={colorPickerOpen}
       />
       <Content
         figures={figures}

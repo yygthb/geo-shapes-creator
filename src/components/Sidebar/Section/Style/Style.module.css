@@ -5,3 +5,7 @@
   /* background-color: darkorange; */
   cursor: pointer;
 }
+
+button:disabled {
+  opacity: .6;
+}
