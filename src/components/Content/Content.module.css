@@ -16,7 +16,8 @@
 }
 
 svg {
-  /* box-sizing: content-box; */
+  box-sizing: content-box;
+  /* box-sizing: border-box; */
 }
 
 .triangle {

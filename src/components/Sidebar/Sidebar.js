@@ -6,7 +6,7 @@ import Style from './Section/Style/Style'
 
 const Sidebar = props => {
   return (
-    <div className={style.sidebar}>
+    <div className={style.sidebar} onClick={props.resetActiveFigure}>
       <Section title="Shapes">
         <Shapes createFigureHandler={props.createFigureHandler} />
       </Section>
