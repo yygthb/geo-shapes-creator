@@ -13,27 +13,33 @@ const Content = props => {
     const target = document.querySelector(`#${e.target.className.baseVal}`)
 
     // высчитать координаты для сдвига по осям (клик мыши в определенную область фигуры)
-    let shiftX = e.clientX - target.getBoundingClientRect().left;
-    let shiftY = e.clientY - target.getBoundingClientRect().top;
+    let shiftY = e.clientY - target.getBoundingClientRect().top
+    let shiftX = e.clientX - target.getBoundingClientRect().left
 
     // задание координат для абсолютного позиционирования перемещаемой фигуры (256px - ширина Sidebar)
-    function moveAt(pageX, pageY) {
-      target.style.left = pageX - 256 - shiftX + 'px';
-      target.style.top = pageY - shiftY + 'px';
-    }
+    function moveAt(pageY, pageX) {
+      const top = pageY - shiftY + 'px'
+      const left = pageX - 256 - shiftX + 'px'
 
-    // moveAt(e.pageX, e.pageY)
+      target.style.top = top
+      target.style.left = left
+    }
 
     // перемещение фигуры в области Content
     function onMouseMove(e) {
-      moveAt(e.pageX, e.pageY);
+      moveAt(e.pageY, e.pageX)
     }
 
-    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mousemove', onMouseMove)
 
     target.onmouseup = function () {
-      document.removeEventListener('mousemove', onMouseMove);
-      target.onmouseup = null;
+      // записать позицию выделенной фигуры в state
+      const top = target.style.top
+      const left = target.style.left
+      props.onChangePositionHandler(index, top, left)
+
+      document.removeEventListener('mousemove', onMouseMove)
+      target.onmouseup = null
     };
   }
 

@@ -57,8 +57,6 @@ function App() {
     // заливка кнопки в сайдбаре цветом выбранной фигуры
     setActiveFigure(figure)
 
-    // console.log('click on id: ', figure.id, ' (index: ', index, ')');
-
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
       const figuresState = [...figures]
@@ -66,6 +64,14 @@ function App() {
       setFigures(figuresState)
       setMaxId(maxId + 1)
     }
+  }
+
+  // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
+  const onChangePositionHandler = (index, top, left) => {
+    const figuresState = [...figures]
+    figuresState[index].position.top = top
+    figuresState[index].position.left = left
+    setFigures(figuresState)
   }
 
   // сбросить выделение активной фигуры
@@ -90,6 +96,7 @@ function App() {
         figures={figures}
         activeFigure={activeFigure}
         onFigureClickHandler={onFigureClickHandler}
+        onChangePositionHandler={onChangePositionHandler}
         resetActiveFigure={resetActiveFigure}
       />
     </main>
