@@ -25,8 +25,11 @@ const Content = props => {
               >
                 <polygon points="0,100 100,0 200,100"
                   fill={figure.color || 'grey'}
-                  style={{ outline: 'none', cursor: 'pointer' }}
-                  onClick={(e) => props.onFigureClickHandler(e, figure)}
+                  style={{
+                    outline: 'none',
+                    cursor: 'pointer'
+                  }}
+                  onClick={(e) => props.onFigureClickHandler(e, figure, index)}
                 />
               </svg>
               :
@@ -34,11 +37,14 @@ const Content = props => {
                 ?
                 <svg key={index} width="200" height="100"
                   className={classes.join(' ')}
-                  style={{ zIndex: figure.id, cursor: 'pointer' }}
+                  style={{
+                    zIndex: figure.id,
+                    cursor: 'pointer'
+                  }}
                 >
                   <rect x="0" y="0" width="200" height="100"
                     fill={figure.color || 'grey'}
-                    onClick={(e) => props.onFigureClickHandler(e, figure)}
+                    onClick={(e) => props.onFigureClickHandler(e, figure, index)}
                   />
                 </svg>
                 :
