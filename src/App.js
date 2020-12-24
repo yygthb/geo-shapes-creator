@@ -1,3 +1,4 @@
+import { findByPlaceholderText } from '@testing-library/react'
 import React, { useState } from 'react'
 import style from './App.module.css'
 import Content from './components/Content/Content'
@@ -11,16 +12,24 @@ function App() {
       id: 1,
       type: 'rectangle',
       color: 'green',
+      position: {
+        top: 'calc(50% - 270px)',
+        left: 'calc(50% - 130px)'
+      }
     },
     {
-      id: 3,
+      id: 2,
       type: 'triangle',
       color: 'red',
+      position: {
+        top: 'calc(50% + 100px)',
+        left: 'calc(50% + 50px)'
+      }
     },
   ])
 
   // регистрация максимального id для задания z-index в стилях (последняя выбранная фигура будет поверх остальных)
-  const [maxId, setMaxId] = useState(3)
+  const [maxId, setMaxId] = useState(2)
 
   // darkorange - цвет по умолчанию для кнопки Fill в сайдбаре
   const defaultFigure = { id: 0, type: '', color: 'darkorange' }
@@ -28,7 +37,17 @@ function App() {
 
   // добавление фигуры в массив figures - отображение в рабочей области программы
   const createFigureHandler = name => {
-    console.log('create: ', name)
+    const figuresState = [...figures]
+    figuresState.push({
+      id: maxId + 1,
+      type: name,
+      color: 'darkorange',
+      position: {
+        top: 'calc(50% - 50px)',
+        left: 'calc(50% - 100px)'
+      }
+    })
+    setFigures(figuresState)
     setMaxId(maxId + 1)
   }
 
@@ -42,9 +61,9 @@ function App() {
 
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
-      const f = [...figures]
-      f[index].id = maxId + 1
-      setFigures(f)
+      const figuresState = [...figures]
+      figuresState[index].id = maxId + 1
+      setFigures(figuresState)
       setMaxId(maxId + 1)
     }
   }

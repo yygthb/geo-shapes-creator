@@ -57,7 +57,11 @@ const Content = props => {
               <svg key={index} width="200" height="100"
                 className={classes.join(' ')}
                 id={`${style[figure.type]}_${figure.id}`}
-                style={{ zIndex: figure.id }}
+                style={{
+                  zIndex: figure.id,
+                  top: figure.position.top,
+                  left: figure.position.left,
+                }}
               >
                 <polygon points="0,100 100,0 200,100"
                   fill={figure.color || 'grey'}
@@ -78,7 +82,11 @@ const Content = props => {
                   draggable="true"
                   className={classes.join(' ')}
                   id={`${style[figure.type]}_${figure.id}`}
-                  style={{ zIndex: figure.id }}
+                  style={{
+                    zIndex: figure.id,
+                    top: figure.position.top,
+                    left: figure.position.left
+                  }}
                 >
                   <rect x="0" y="0" width="200" height="100"
                     fill={figure.color || 'grey'}
