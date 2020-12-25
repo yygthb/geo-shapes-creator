@@ -4,6 +4,8 @@ import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 
 const defaultFigure = null
+const defaultFillColor = '#FFFFFF'
+const newFigureColor = '#FF8C00'
 
 function App() {
 
@@ -12,7 +14,7 @@ function App() {
     {
       id: 1,
       type: 'rectangle',
-      color: 'green',
+      color: '#008000',
       position: {
         top: 'calc(50% - 50px)',
         left: 'calc(50% - 100px)'
@@ -21,7 +23,7 @@ function App() {
     {
       id: 2,
       type: 'triangle',
-      color: 'red',
+      color: '#ff0000',
       position: {
         top: 'calc(50% + 100px)',
         left: 'calc(50% + 50px)'
@@ -34,6 +36,9 @@ function App() {
 
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
 
+  // set Fill background
+  const [fillColor, setFillColor] = useState(defaultFillColor)
+
   // добавление фигуры в массив figures - отображение в рабочей области программы
   // 50px - половина высоты; 100px - половина ширины
   // darkorange - цвет для новой фигуры по-умолчанию
@@ -42,7 +47,7 @@ function App() {
     figuresState.push({
       id: maxId + 1,
       type: name,
-      color: 'darkorange',
+      color: newFigureColor,
       position: {
         top: 'calc(50% - 50px)',
         left: 'calc(50% - 100px)'
@@ -62,6 +67,7 @@ function App() {
 
     // заливка кнопки в сайдбаре цветом выбранной фигуры
     setActiveFigure(figure)
+    setFillColor(figure.color)
 
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
@@ -83,12 +89,19 @@ function App() {
   // сбросить выделение активной фигуры
   const resetActiveFigure = (e) => {
     setActiveFigure(defaultFigure)
+    setFillColor(defaultFillColor)
   }
 
-  // открыть color picker в сайдбаре
-  const colorPickerOpen = e => {
-    e.stopPropagation()
-    console.log('open color picker')
+  // Color Picker
+  const onColorChange = e => {
+    setFillColor(e.target.value)
+
+    const id = activeFigure.id
+    const prevFigures = [...figures]
+    const active = prevFigures.filter(fig => fig.id === id)[0]
+    const index = prevFigures.findIndex(figure => figure === active)
+    prevFigures[index].color = e.target.value
+    setFigures(prevFigures)
   }
 
   window.figures = figures
@@ -99,7 +112,8 @@ function App() {
       <Sidebar
         createFigureHandler={createFigureHandler}
         activeFigure={activeFigure}
-        colorPickerOpen={colorPickerOpen}
+        color={fillColor}
+        onColorChange={onColorChange}
         resetActiveFigure={resetActiveFigure}
       />
       <Content

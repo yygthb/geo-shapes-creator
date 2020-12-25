@@ -1,21 +1,25 @@
 import style from './Style.module.css'
 
 const Style = props => {
-  const disableButton = props.activeFigure === null ? true : false
-  const backgroundColor = props.activeFigure === null ? '#fff' : props.activeFigure.color
-  // const backgroundColor = props.activeFigure === null ? 'darkorange' : props.activeFigure.color
-
+  // инпут неактивный, если фигура не выбрана
+  const disabled = props.activeFigure === null ? true : false
 
   return (
     <>
-      <span className={style.property}>Fill</span>
-      <button
-        disabled={disableButton}
-        className={style.fill}
-        title="open pallet"
-        style={{ backgroundColor: backgroundColor }}
-        onClick={props.colorPickerOpen}
-      ></button>
+      <label className={style.property}>Fill</label>
+      <input type="color" 
+        disabled={disabled}
+        className={style.input} 
+        value={props.color}
+        style={{
+          backgroundColor: props.color
+        }}
+        onClick={e => {
+          // остановить "сброс выбранной фигуры"
+          e.stopPropagation()
+        }}
+        onChange={props.onColorChange}
+      />
     </>
   )
 }

@@ -13,7 +13,8 @@ const Sidebar = props => {
       <Section title="Style">
         <Style
           activeFigure={props.activeFigure}
-          colorPickerOpen={props.colorPickerOpen}
+          onColorChange={props.onColorChange}
+          color={props.color}
         />
       </Section>
     </div>
