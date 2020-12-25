@@ -6,8 +6,13 @@ const Content = props => {
 
   // перемещение выделенной фигуры в рабочей области приложения 
   const onMouseDown = (e, figure, index) => {
+    console.log('onMouseDown start')
     // добавление границы к фигуре в момент onmousedown
-    props.onFigureClickHandler(e, figure, index)
+
+    //  ||  при перемещении фигура получает класс "active" - добавляются границы 
+    //  ||  при нажатии Delete фигура удаляется (даже если не выделена)
+    // props.onFigureClickHandler(e, figure, index)
+    // props.onMoveHandler(e, figure)
 
     // вычисление центра "рабочей области" - позиционирование фигуры относительно этого центра
     const getMidCoordinates = el => {
@@ -51,6 +56,7 @@ const Content = props => {
     document.addEventListener('mousemove', onMouseMove)
 
     target.onmouseup = function () {
+      console.log('onMouseDown end')
       // записать позицию выделенной фигуры в state для сохранения в localStorage
       const top = target.style.top
       const left = target.style.left

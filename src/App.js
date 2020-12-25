@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
@@ -34,6 +34,21 @@ function App() {
   const defaultFigure = { id: 0, type: '', color: '#fff' }
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
 
+  const [select, setSelect] = useState(false)
+
+  // Delete keydown listener
+  useEffect(() => {
+    if (activeFigure.id > 0) {
+      console.log('useEffect on; select: ', select)
+      console.log('activeFigure: ', activeFigure)
+      document.addEventListener('keydown', deleteFigure)
+    } else {
+      console.log('useEffect off; select: ', select)
+      console.log('activeFigure: ', activeFigure)
+      return () => document.removeEventListener('keydown', deleteFigure)
+    }
+  }, [activeFigure])
+
   // добавление фигуры в массив figures - отображение в рабочей области программы
   // 50px - половина высоты; 100px - половина ширины
   // darkorange - цвет для новой фигуры по-умолчанию
@@ -52,12 +67,28 @@ function App() {
     setMaxId(maxId + 1)
   }
 
+  function deleteFigure(e) {
+    console.log('active figure in listener: ', activeFigure)
+
+    if (e.code === 'Delete') {
+      const filteredFigures = figures.filter(figure => figure.id !== activeFigure.id)
+      // console.log('filteredFigures: ', filteredFigures)
+      setFigures(filteredFigures)
+      setActiveFigure(defaultFigure)
+
+      // remove listener
+      document.removeEventListener('keydown', deleteFigure)
+    }
+  }
+
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
     e.stopPropagation()
 
     // заливка кнопки в сайдбаре цветом выбранной фигуры
+    // console.log('setActiveFigure: ', figure)
     setActiveFigure(figure)
+    setSelect(true)
 
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
@@ -66,21 +97,12 @@ function App() {
       setFigures(figuresState)
       setMaxId(maxId + 1)
     }
+  }
 
-    const deleteFigure = (e) => {
-      if (e.code === 'Delete') {
-        const figuresState = [...figures]
-        figuresState.splice(index, 1)
-        setFigures(figuresState)
-        setActiveFigure(defaultFigure)
-
-        // remove listener
-        document.removeEventListener('keydown', deleteFigure)
-      }
-    }
-
-    // удалить фигуру по нажатию "Delete"
-    document.addEventListener('keydown', deleteFigure)
+  const onMoveHandler = (e, figure, index) => {
+    e.preventDefault()
+    console.log('move figure: ', figure)
+    setActiveFigure(figure)
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
@@ -93,6 +115,8 @@ function App() {
 
   // сбросить выделение активной фигуры
   const resetActiveFigure = (e) => {
+    setSelect(false)
+    document.removeEventListener('keydown', deleteFigure)
     setActiveFigure(defaultFigure)
   }
 
@@ -114,6 +138,7 @@ function App() {
         figures={figures}
         activeFigure={activeFigure}
         onFigureClickHandler={onFigureClickHandler}
+        onMoveHandler={onMoveHandler}
         onChangePositionHandler={onChangePositionHandler}
         resetActiveFigure={resetActiveFigure}
       />
