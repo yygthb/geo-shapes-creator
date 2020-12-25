@@ -1,4 +1,3 @@
-import { findByPlaceholderText } from '@testing-library/react'
 import React, { useState } from 'react'
 import style from './App.module.css'
 import Content from './components/Content/Content'
@@ -13,8 +12,8 @@ function App() {
       type: 'rectangle',
       color: 'green',
       position: {
-        top: 'calc(50% - 270px)',
-        left: 'calc(50% - 130px)'
+        top: 'calc(50% - 50px)',
+        left: 'calc(50% - 100px)'
       }
     },
     {
@@ -32,7 +31,7 @@ function App() {
   const [maxId, setMaxId] = useState(2)
 
   // darkorange - цвет по умолчанию для кнопки Fill в сайдбаре
-  const defaultFigure = { id: 0, type: '', color: 'darkorange' }
+  const defaultFigure = { id: 0, type: '', color: '' }
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
 
   // добавление фигуры в массив figures - отображение в рабочей области программы

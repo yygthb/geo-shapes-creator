@@ -3,6 +3,9 @@
   background-color: #EFEFEF;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content::before {
@@ -25,6 +28,13 @@
   top: calc(50% - 0.5px);
 }
 
+.content_mid {
+  display: block;
+  width: 0;
+  height: 0;
+  position: relative;
+}
+
 svg {
   box-sizing: content-box;
 }
@@ -40,3 +50,13 @@ svg {
 svg.active {
   border: 3px dashed #2F80ED;
 }
+
+/* .active {
+  height: 106px;
+  border: 3px dashed #2F80ED;
+  transform: translate(-3px, -3px);
+}
+
+svg.active {
+  height: 100px;
+} */
