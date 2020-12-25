@@ -55,6 +55,7 @@ function App() {
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
     e.stopPropagation()
+
     // заливка кнопки в сайдбаре цветом выбранной фигуры
     setActiveFigure(figure)
 
@@ -66,8 +67,20 @@ function App() {
       setMaxId(maxId + 1)
     }
 
-    // Delete-click listener
+    const deleteFigure = (e) => {
+      if (e.code === 'Delete') {
+        const figuresState = [...figures]
+        figuresState.splice(index, 1)
+        setFigures(figuresState)
+        setActiveFigure(defaultFigure)
 
+        // remove listener
+        document.removeEventListener('keydown', deleteFigure)
+      }
+    }
+
+    // удалить фигуру по нажатию "Delete"
+    document.addEventListener('keydown', deleteFigure)
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
@@ -86,7 +99,7 @@ function App() {
   // открыть color picker в сайдбаре
   const colorPickerOpen = e => {
     e.stopPropagation()
-    console.log('open color picker');
+    console.log('open color picker')
   }
 
   return (
@@ -105,7 +118,7 @@ function App() {
         resetActiveFigure={resetActiveFigure}
       />
     </main>
-  );
+  )
 }
 
 export default App

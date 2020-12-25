@@ -4,7 +4,7 @@ import style from './Content.module.css'
 const Content = props => {
   const activeId = props.activeFigure.id
 
-  // mousedown
+  // перемещение выделенной фигуры в рабочей области приложения 
   const onMouseDown = (e, figure, index) => {
     // добавление границы к фигуре в момент onmousedown
     props.onFigureClickHandler(e, figure, index)
@@ -92,6 +92,7 @@ const Content = props => {
                   <polygon points="0,100 100,0 200,100"
                     fill={figure.color || 'grey'}
                     className={`${style[figure.type]}_${figure.id}`}
+                    data-index={index}
                     style={{ cursor: 'pointer' }}
                     onMouseDown={e => {
                       onMouseDown(e, figure, index)
@@ -117,6 +118,7 @@ const Content = props => {
                     <rect x="0" y="0" width="200" height="100"
                       fill={figure.color || 'grey'}
                       className={`${style[figure.type]}_${figure.id}`}
+                      data-index={index}
                       style={{ cursor: 'pointer' }}
                       onMouseDown={e => {
                         onMouseDown(e, figure, index)
