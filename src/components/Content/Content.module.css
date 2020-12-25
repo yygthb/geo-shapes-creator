@@ -49,14 +49,5 @@ svg {
 
 svg.active {
   border: 3px dashed #2F80ED;
-}
-
-/* .active {
-  height: 106px;
-  border: 3px dashed #2F80ED;
   transform: translate(-3px, -3px);
 }
-
-svg.active {
-  height: 100px;
-} */
