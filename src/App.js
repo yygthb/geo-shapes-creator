@@ -3,6 +3,8 @@ import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 
+const defaultFigure = null
+
 function App() {
 
   // figures in Content area
@@ -30,24 +32,7 @@ function App() {
   // регистрация максимального id для задания z-index в стилях (последняя выбранная фигура будет поверх остальных)
   const [maxId, setMaxId] = useState(2)
 
-  // #fff - цвет по умолчанию для кнопки Fill в сайдбаре (в стилях opacity: 0.5)
-  const defaultFigure = { id: 0, type: '', color: '#fff' }
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
-
-  const [select, setSelect] = useState(false)
-
-  // Delete keydown listener
-  useEffect(() => {
-    if (activeFigure.id > 0) {
-      console.log('useEffect on; select: ', select)
-      console.log('activeFigure: ', activeFigure)
-      document.addEventListener('keydown', deleteFigure)
-    } else {
-      console.log('useEffect off; select: ', select)
-      console.log('activeFigure: ', activeFigure)
-      return () => document.removeEventListener('keydown', deleteFigure)
-    }
-  }, [activeFigure])
 
   // добавление фигуры в массив figures - отображение в рабочей области программы
   // 50px - половина высоты; 100px - половина ширины
@@ -67,28 +52,16 @@ function App() {
     setMaxId(maxId + 1)
   }
 
-  function deleteFigure(e) {
-    console.log('active figure in listener: ', activeFigure)
-
-    if (e.code === 'Delete') {
-      const filteredFigures = figures.filter(figure => figure.id !== activeFigure.id)
-      // console.log('filteredFigures: ', filteredFigures)
-      setFigures(filteredFigures)
-      setActiveFigure(defaultFigure)
-
-      // remove listener
-      document.removeEventListener('keydown', deleteFigure)
-    }
-  }
+  // const deleteFigure = e => {
+  //   console.log('keydown listener')
+  // }
 
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
     e.stopPropagation()
 
     // заливка кнопки в сайдбаре цветом выбранной фигуры
-    // console.log('setActiveFigure: ', figure)
     setActiveFigure(figure)
-    setSelect(true)
 
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
@@ -97,12 +70,6 @@ function App() {
       setFigures(figuresState)
       setMaxId(maxId + 1)
     }
-  }
-
-  const onMoveHandler = (e, figure, index) => {
-    e.preventDefault()
-    console.log('move figure: ', figure)
-    setActiveFigure(figure)
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
@@ -115,8 +82,6 @@ function App() {
 
   // сбросить выделение активной фигуры
   const resetActiveFigure = (e) => {
-    setSelect(false)
-    document.removeEventListener('keydown', deleteFigure)
     setActiveFigure(defaultFigure)
   }
 
@@ -125,6 +90,9 @@ function App() {
     e.stopPropagation()
     console.log('open color picker')
   }
+
+  window.figures = figures
+  window.activeFigure = activeFigure
 
   return (
     <main className={style.main}>
@@ -138,7 +106,6 @@ function App() {
         figures={figures}
         activeFigure={activeFigure}
         onFigureClickHandler={onFigureClickHandler}
-        onMoveHandler={onMoveHandler}
         onChangePositionHandler={onChangePositionHandler}
         resetActiveFigure={resetActiveFigure}
       />
