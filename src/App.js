@@ -30,11 +30,13 @@ function App() {
   // регистрация максимального id для задания z-index в стилях (последняя выбранная фигура будет поверх остальных)
   const [maxId, setMaxId] = useState(2)
 
-  // darkorange - цвет по умолчанию для кнопки Fill в сайдбаре
-  const defaultFigure = { id: 0, type: '', color: '' }
+  // #fff - цвет по умолчанию для кнопки Fill в сайдбаре (в стилях opacity: 0.5)
+  const defaultFigure = { id: 0, type: '', color: '#fff' }
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
 
   // добавление фигуры в массив figures - отображение в рабочей области программы
+  // 50px - половина высоты; 100px - половина ширины
+  // darkorange - цвет для новой фигуры по-умолчанию
   const createFigureHandler = name => {
     const figuresState = [...figures]
     figuresState.push({
@@ -63,6 +65,9 @@ function App() {
       setFigures(figuresState)
       setMaxId(maxId + 1)
     }
+
+    // Delete-click listener
+
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)

@@ -2,7 +2,6 @@ import style from './Style.module.css'
 
 const Style = props => {
   const disableButton = props.activeFigure.id === 0 ? true : false
-  const background = props.activeFigure.color || '#fff'
 
   return (
     <>
@@ -11,8 +10,7 @@ const Style = props => {
         disabled={disableButton}
         className={style.fill}
         title="open pallet"
-        // style={{ backgroundColor: props.activeFigure.color }}
-        style={{ backgroundColor: background }}
+        style={{ backgroundColor: props.activeFigure.color }}
         onClick={props.colorPickerOpen}
       ></button>
     </>
