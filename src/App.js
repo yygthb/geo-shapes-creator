@@ -80,7 +80,8 @@ function App() {
   }
 
   // открыть color picker в сайдбаре
-  const colorPickerOpen = () => {
+  const colorPickerOpen = e => {
+    e.stopPropagation()
     console.log('open color picker');
   }
 
