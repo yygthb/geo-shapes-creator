@@ -5,14 +5,24 @@
   overflow: hidden;
 }
 
+.content::before {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 100vh;
+  background-color: rgba(204, 204, 204, 0.5);
+  left: calc(50% - 0.5px);
+}
+
 .content::after {
   display: block;
   content: '';
   position: absolute;
   width: 100vw;
   height: 1px;
-  background-color: lightslategray;
-  top: 50%;
+  background-color: rgba(204, 204, 204, 0.5);
+  top: calc(50% - 0.5px);
 }
 
 svg {
