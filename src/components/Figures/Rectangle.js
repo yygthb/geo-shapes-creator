@@ -1,18 +1,20 @@
 import React from 'react'
 const style = {}
 
-const Triangle = ({classes, figure, index, ...props}) => {
+const Rectangle = ({classes, figure, index, ...props}) => {
+
   return (
     <svg width="200" height="100"
+      draggable="true"
       className={classes.join(' ')}
       id={`${style[figure.type]}_${figure.id}`}
       style={{
         zIndex: figure.id,
         top: figure.position.top,
-        left: figure.position.left,
+        left: figure.position.left
       }}
     >
-      <polygon points="0,100 100,0 200,100"
+      <rect x="0" y="0" width="200" height="100"
         fill={figure.color || 'grey'}
         className={`${style[figure.type]}_${figure.id}`}
         style={{ cursor: 'pointer' }}
@@ -26,4 +28,4 @@ const Triangle = ({classes, figure, index, ...props}) => {
   )
 }
 
-export default Triangle
+export default Rectangle
