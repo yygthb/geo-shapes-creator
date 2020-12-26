@@ -1,9 +1,15 @@
 import config from '../../config/config'
 import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "../actions/actionTypes"
 
-const initialState = {
-  figures: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE)).figures || [],
-  maxId: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE)).maxId || 0,
+const initialState = localStorage.getItem(config.LOCAL_STORAGE_FIGURE)
+? {
+  figures: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE)).figures,
+  maxId: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE)).maxId,
+  activeFigure: null,
+}
+: {
+  figures: [],
+  maxId: 0,
   activeFigure: null,
 }
 

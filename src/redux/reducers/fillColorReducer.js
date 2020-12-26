@@ -1,5 +1,5 @@
 import config from "../../config/config"
-import { KEY_LISTENER_DELETE, GET_ACTIVE_FIGURE, GET_NEW_COLOR_TO_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE } from "../actions/actionTypes"
+import { KEY_LISTENER_DELETE, GET_ACTIVE_FIGURE, GET_NEW_COLOR_TO_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE, ADD_NEW_FIGURE } from "../actions/actionTypes"
 
 const initialState = {
   fillColor: config.DEFAULT_FILL_COLOR
@@ -8,6 +8,10 @@ const initialState = {
 export default function fillColorReducer (state = initialState, action) {
 
   switch(action.type) {
+    case ADD_NEW_FIGURE:
+      return {
+        fillColor: config.DEFAULT_FILL_COLOR
+      }
     case RESET_ACTIVE_FIGURE:
       return {
         fillColor: config.DEFAULT_FILL_COLOR
