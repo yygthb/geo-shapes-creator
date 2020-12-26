@@ -6,9 +6,14 @@ import style from './Content.module.css'
 const Content = props => {
   const activeId = props.activeFigure !== null ? props.activeFigure.id : 0
 
-  // перемещение выделенной фигуры в рабочей области приложения 
+  /*
+  ВНИМАНИЕ!
+  Все константы и функции в теле функционального компонента всегда создаются заново при каждом
+  рендеринге! Чтобы это обойти используют хуки.
+   */
+  // перемещение выделенной фигуры в рабочей области приложения
   const onMouseDown = (e, figure, index) => {
-    //  ||  при перемещении фигура получает класс "active" - добавляются границы 
+    //  ||  при перемещении фигура получает класс "active" - добавляются границы
     //  ||  при нажатии Delete фигура удаляется (даже если не выделена)
     props.onFigureClickHandler(e, figure, index)
 
@@ -29,6 +34,7 @@ const Content = props => {
     const content = document.querySelector('#content')
     const [midY, midX] = getMidCoordinates(content)
 
+    // В react так не делают! Не работают с DOM напрямую.
     // svg-фигура для перемещения
     const target = document.querySelector(`#${e.target.className.baseVal}`)
 
@@ -45,14 +51,21 @@ const Content = props => {
       target.style.left = left
     }
 
+    /*
+    Функция создается заново!
+     */
     // перемещение фигуры в области Content
     function onMouseMove(e) {
       // moveAt(e.pageY, e.pageX)
       moveAt(e.clientY, e.clientX)
     }
 
+    // Вот здесь повесился обработчик на только что созданную функцию, и потом еще раз повеситься
+    // на еще одну созданную функцию, и еще... Каждый раз при рендеринге!
     document.addEventListener('mousemove', onMouseMove)
 
+    // Здесь заново создается обработчик, старый забывается и значит removeEventListener для
+    // прошлого значения не выполнится!
     target.onmouseup = function () {
       // записать позицию выделенной фигуры в state для сохранения в localStorage
       const top = target.style.top
@@ -83,7 +96,7 @@ const Content = props => {
               figure.type === 'triangle'
                 ?
                 // треугольники
-                <Triangle key={index} 
+                <Triangle key={index}
                   classes={classes}
                   index={index}
                   figure={figure}
