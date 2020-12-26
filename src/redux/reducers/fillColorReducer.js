@@ -1,3 +1,5 @@
+import { SET_DEFAULT_FILL_COLOR, SET_FILL_COLOR } from "../actions/actionTypes"
+
 const defaultFillColor = '#FFFFFF'
 
 const initialState = {
@@ -7,11 +9,11 @@ const initialState = {
 export default function fillColorReducer (state = initialState, action) {
 
   switch(action.type) {
-    case 'SET_DEFAULT_FILL_COLOR':
+    case SET_DEFAULT_FILL_COLOR:
       return {
         fillColor: defaultFillColor
       }
-    case 'SET_FILL_COLOR':
+    case SET_FILL_COLOR:
       return {
         fillColor: action.value
       }

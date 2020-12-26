@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
+import { addNewFigure, incMaxId, setDefaultFillColor, setFillColor } from './redux/actions/actionCreators'
 
 const defaultFigure = null
 
@@ -126,11 +127,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getFigures: () => dispatch({ type: 'GET_FIGURES' }),
-    addNewFigure: name => dispatch({ type: 'ADD_NEW_FIGURE', value: name }),
-    setDefaultFillColor: () => dispatch({ type: 'SET_DEFAULT_FILL_COLOR' }),
-    setFillColor: color => dispatch({ type: 'SET_FILL_COLOR', value: color }),
-    incMaxId: () => dispatch({ type: 'INC_MAX_ID' })
+    addNewFigure: name => dispatch(addNewFigure(name)),
+    incMaxId: () => dispatch(incMaxId()),
+    setDefaultFillColor: () => dispatch(setDefaultFillColor()),
+    setFillColor: color => dispatch(setFillColor(color)),
   }
 }
 

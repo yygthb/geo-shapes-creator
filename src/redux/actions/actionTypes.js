@@ -1,0 +1,4 @@
+export const ADD_NEW_FIGURE = 'ADD_NEW_FIGURE'
+export const INC_MAX_ID = 'INC_MAX_ID'
+export const SET_DEFAULT_FILL_COLOR = 'SET_DEFAULT_FILL_COLOR'
+export const SET_FILL_COLOR = 'SET_FILL_COLOR'
