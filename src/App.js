@@ -5,7 +5,6 @@ import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 
 const defaultFigure = null
-const newFigureColor = '#FF8C00' // darkorange - цвет для новой фигуры по-умолчанию
 
 function App (props) {
 
@@ -38,21 +37,7 @@ function App (props) {
 
   // добавление фигуры в массив figures - отображение в рабочей области программы
   // 50px - половина высоты; 100px - половина ширины
-  const createFigureHandler = name => {
-    const figuresState = [...figures]
-    figuresState.push({
-      id: maxId + 1,
-      type: name,
-      color: newFigureColor,
-      position: {
-        top: 'calc(50% - 50px)',
-        left: 'calc(50% - 100px)'
-      }
-    })
-    // setFigures(figuresState)
-    props.addNewFigure(name)
-    setMaxId(maxId + 1)
-  }
+  const createFigureHandler = name => props.addNewFigure(name)
 
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
@@ -133,9 +118,9 @@ function App (props) {
 
 const mapStateToProps = state => {
   return {
-    fillColor: state.fillColor,
-    figures: state.figures,
-    maxId: state.maxId,
+    fillColor: state.fillColorState.fillColor,
+    figures: state.figuresState.figures,
+    maxId: state.figuresState.maxId,
   }
 }
 
@@ -145,7 +130,7 @@ const mapDispatchToProps = dispatch => {
     addNewFigure: name => dispatch({ type: 'ADD_NEW_FIGURE', value: name }),
     setDefaultFillColor: () => dispatch({ type: 'SET_DEFAULT_FILL_COLOR' }),
     setFillColor: color => dispatch({ type: 'SET_FILL_COLOR', value: color }),
-    incMaxId: id => dispatch({ type: 'INC_MAX_ID', value: id })
+    incMaxId: () => dispatch({ type: 'INC_MAX_ID' })
   }
 }
 

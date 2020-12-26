@@ -1,8 +1,6 @@
-const defaultFillColor = '#FFFFFF'
 const defaultFigureColor = '#FF8C00'
 
 const initialState = {
-  fillColor: defaultFillColor,
   figures: [
     {
       id: 1,
@@ -26,13 +24,12 @@ const initialState = {
   maxId: 2
 }
 
-export default function mainReducer (state = initialState, action) {
+export default function figuresReducer (state = initialState, action) {
 
   switch(action.type) {
     case 'ADD_NEW_FIGURE':
       const figures = state.figures
-      let maxId = state.maxId
-      maxId = maxId + 1
+      const maxId = state.maxId + 1
       figures.push({
         id: maxId,
         type: action.value,
@@ -47,15 +44,10 @@ export default function mainReducer (state = initialState, action) {
         figures: figures,
         maxId: maxId
       }
-    case 'SET_DEFAULT_FILL_COLOR':
+    case 'INC_MAX_ID':
       return {
         ...state,
-        fillColor: defaultFillColor
-      }
-    case 'SET_FILL_COLOR':
-      return {
-        ...state,
-        fillColor: action.value
+        maxId: state.maxId + 1
       }
     default:
       return state
