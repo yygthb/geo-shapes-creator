@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 const style = {}
 
 const Triangle = ({classes, figure, index, ...props}) => {
@@ -26,6 +27,13 @@ const Triangle = ({classes, figure, index, ...props}) => {
       />
     </svg>
   )
+}
+
+Triangle.propTypes = {
+  classes: PropTypes.arrayOf(PropTypes.string),
+  figure: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  onkeydown: PropTypes.func
 }
 
 export default Triangle

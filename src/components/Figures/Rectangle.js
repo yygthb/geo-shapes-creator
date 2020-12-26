@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 const style = {}
 
 const Rectangle = ({classes, figure, index, ...props}) => {
@@ -28,6 +29,13 @@ const Rectangle = ({classes, figure, index, ...props}) => {
       />
     </svg>
   )
+}
+
+Rectangle.propTypes = {
+  classes: PropTypes.arrayOf(PropTypes.string),
+  figure: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  onkeydown: PropTypes.func
 }
 
 export default Rectangle

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import style from './Sidebar.module.css'
 import Section from './Section/Section'
 import Shapes from './Section/Shapes/Shapes'
@@ -19,6 +20,11 @@ const Sidebar = props => {
       </Section>
     </div>
   )
+}
+
+Sidebar.propTypes = {
+  activeFigure: PropTypes.object,
+  color: PropTypes.string.isRequired
 }
 
 export default Sidebar

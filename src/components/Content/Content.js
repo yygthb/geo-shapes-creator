@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Rectangle from '../Figures/Rectangle'
 import Triangle from '../Figures/Triangle'
 import style from './Content.module.css'
@@ -112,6 +113,12 @@ const Content = props => {
       </div>
     </div >
   )
+}
+
+Content.propTypes = {
+  activeFigure: PropTypes.object,
+  figures: PropTypes.arrayOf(PropTypes.object)
+  
 }
 
 export default Content

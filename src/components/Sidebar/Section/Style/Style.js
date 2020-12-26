@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import style from './Style.module.css'
 
 const Style = props => {
@@ -23,6 +24,12 @@ const Style = props => {
       />
     </>
   )
+}
+
+Style.propTypes = {
+  activeFigure: PropTypes.object,
+  color: PropTypes.string.isRequired,
+  onColorChange: PropTypes.func
 }
 
 export default Style

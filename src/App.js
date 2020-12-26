@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
@@ -58,6 +59,12 @@ function App (props) {
       />
     </main>
   )
+}
+
+App.propTypes = {
+  activeFigure: PropTypes.object,
+  fillColor: PropTypes.string.isRequired,
+  figures: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 const mapStateToProps = state => {

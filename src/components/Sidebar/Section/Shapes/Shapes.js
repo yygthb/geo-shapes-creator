@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import style from './Shapes.module.css'
 
 const Shapes = props => {
@@ -19,6 +20,10 @@ const Shapes = props => {
       ></div>
     </>
   )
+}
+
+Shapes.propTypes = {
+  createFigureHandler: PropTypes.func
 }
 
 export default Shapes
