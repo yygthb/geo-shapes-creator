@@ -4,11 +4,20 @@ import './normalize.css'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import mainReducer from './redux/mainReducer'
 
-const store = createStore(mainReducer)
+function logger(store) {
+  return next => action => {
+    console.log('will dispatch', action)
+    const returnValue = next(action)
+    return returnValue
+  }
+}
+
+// const store = createStore(mainReducer, applyMiddleware(logger))
+const store = createStore(mainReducer, applyMiddleware())
 
 const app = (
   <Provider store={store}>

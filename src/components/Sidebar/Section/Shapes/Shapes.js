@@ -6,12 +6,16 @@ const Shapes = props => {
       <div
         className={style.createButton + ' ' + style.rectangle}
         title="create rectangle"
-        onClick={() => props.createFigureHandler('rectangle')}
+        onClick={e => {
+          props.createFigureHandler(e, 'rectangle')
+        }}
       ></div>
       <div
         className={style.createButton + ' ' + style.triangle}
         title="create triangle"
-        onClick={() => props.createFigureHandler('triangle')}
+        onClick={e => {
+          props.createFigureHandler(e, 'triangle')
+        }}
       ></div>
     </>
   )

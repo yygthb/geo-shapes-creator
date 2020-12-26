@@ -1,6 +1,5 @@
-import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, Z_INDEX_UPDATE, RESET_ACTIVE_FIGURE, SET_DEFAULT_FILL_COLOR, SET_FILL_COLOR, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, DELETE_KEY_LISTENER } from "./actionTypes";
+import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "./actionTypes";
 
-// figuresReducer
 export function addNewFigure(name) {
   return {
     type: ADD_NEW_FIGURE,
@@ -14,24 +13,16 @@ export function incMaxId() {
   }
 }
 
-export function getactiveFigure(activeFigure) {
+export function getactiveFigure(value) {
   return {
     type: GET_ACTIVE_FIGURE,
-    activeFigure
+    value
   }
 }
 
 export function resetActiveFigure() {
   return {
     type: RESET_ACTIVE_FIGURE
-  }
-}
-
-export function zIndexUpdateHandler(id, index) {
-  return {
-    type: Z_INDEX_UPDATE,
-    id,
-    index
   }
 }
 
@@ -49,23 +40,9 @@ export function getNewColorToFigure(color) {
   }
 }
 
-export function onKeyDownListener(eCode, index) {
+export function onDeleteKeyDownListener(eCode, index) {
   return {
-    type: DELETE_KEY_LISTENER,
+    type: KEY_LISTENER_DELETE,
     eCode, index
-  }
-}
-
-// fillColorReducer
-export function setDefaultFillColor() {
-  return {
-    type: SET_DEFAULT_FILL_COLOR
-  }
-}
-
-export function setFillColor(color) {
-  return {
-    type: SET_FILL_COLOR,
-    color
   }
 }

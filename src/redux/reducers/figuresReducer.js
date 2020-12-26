@@ -1,5 +1,5 @@
 import config from '../../config/config'
-import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, Z_INDEX_UPDATE, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, DELETE_KEY_LISTENER } from "../actions/actionTypes"
+import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "../actions/actionTypes"
 
 const initialState = {
   figures: [
@@ -44,7 +44,8 @@ export default function figuresReducer (state = initialState, action) {
       return {
         ...state,
         figures: figures,
-        maxId: maxId
+        maxId: maxId,
+        activeFigure: null,
       }
     case INC_MAX_ID:
       return {
@@ -52,26 +53,25 @@ export default function figuresReducer (state = initialState, action) {
         maxId: state.maxId + 1
       }
     case GET_ACTIVE_FIGURE:
+      if (action.value.figure.id < state.maxId) {
+        const figures = state.figures
+        figures[action.value.index].id = state.maxId + 1
+        return {
+          ...state,
+          figures: figures,
+          maxId: state.maxId + 1,
+          activeFigure: action.value.figure
+        }
+      }
       return {
         ...state,
-        activeFigure: action.activeFigure
+        activeFigure: action.value.figure
       }
     case RESET_ACTIVE_FIGURE:
       return {
         ...state,
         activeFigure: null
       }
-    case Z_INDEX_UPDATE:
-      if (action.id < state.maxId) {
-        const figures = state.figures
-        figures[action.index].id = state.maxId + 1
-        return {
-          ...state,
-          figures: figures,
-          maxId: state.maxId + 1
-        }
-      }
-      return state
     case SAVE_POSITION:
       const prevFigures = state.figures
       prevFigures[action.index].position.top = action.top
@@ -89,7 +89,7 @@ export default function figuresReducer (state = initialState, action) {
         ...state,
         figures: prevFigures2
       }
-    case DELETE_KEY_LISTENER:
+    case KEY_LISTENER_DELETE:
       if (action.eCode === config.DELETE_KEY_DOWN) {
         const prevFigures3 = state.figures
         prevFigures3.splice(action.index, 1)
