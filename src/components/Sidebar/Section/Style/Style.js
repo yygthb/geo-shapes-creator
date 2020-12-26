@@ -9,7 +9,8 @@ const Style = props => {
       <label className={style.property}>Fill</label>
       <input type="color" 
         disabled={disabled}
-        className={style.input} 
+        className={style.input}
+        title="Color Picker"
         value={props.color}
         style={{
           backgroundColor: props.color

@@ -36,9 +36,6 @@ function App (props) {
 
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
 
-  // set Fill background
-  // const [fillColor, setFillColor] = useState(defaultFillColor)
-
   // добавление фигуры в массив figures - отображение в рабочей области программы
   // 50px - половина высоты; 100px - половина ширины
   const createFigureHandler = name => {
@@ -52,7 +49,8 @@ function App (props) {
         left: 'calc(50% - 100px)'
       }
     })
-    setFigures(figuresState)
+    // setFigures(figuresState)
+    props.addNewFigure(name)
     setMaxId(maxId + 1)
   }
 
@@ -61,8 +59,9 @@ function App (props) {
     e.stopPropagation()
 
     // заливка кнопки в сайдбаре цветом выбранной фигуры
-    setActiveFigure(figure)
     props.setFillColor(figure.color)
+
+    setActiveFigure(figure)
 
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
@@ -89,12 +88,10 @@ function App (props) {
 
   // Color Picker
   const onColorChange = e => {
-    // setFillColor(e.target.value)
     props.setFillColor(e.target.value)
 
     const { id } = activeFigure
     const prevFigures = [...figures]
-    // const active = prevFigures.filter(fig => fig.id === id)[0]
     const index = prevFigures.findIndex(figure => figure.id === id)
     prevFigures[index].color = e.target.value
     setFigures(prevFigures)
@@ -111,6 +108,8 @@ function App (props) {
     }
   }
 
+  window.props = props
+
   return (
     <main className={style.main}>
       <Sidebar
@@ -121,7 +120,7 @@ function App (props) {
         resetActiveFigure={resetActiveFigure}
       />
       <Content
-        figures={figures}
+        figures={props.figures}
         activeFigure={activeFigure}
         onFigureClickHandler={onFigureClickHandler}
         onChangePositionHandler={onChangePositionHandler}
@@ -134,14 +133,19 @@ function App (props) {
 
 const mapStateToProps = state => {
   return {
-    fillColor: state.fillColor
+    fillColor: state.fillColor,
+    figures: state.figures,
+    maxId: state.maxId,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    getFigures: () => dispatch({ type: 'GET_FIGURES' }),
+    addNewFigure: name => dispatch({ type: 'ADD_NEW_FIGURE', value: name }),
     setDefaultFillColor: () => dispatch({ type: 'SET_DEFAULT_FILL_COLOR' }),
     setFillColor: color => dispatch({ type: 'SET_FILL_COLOR', value: color }),
+    incMaxId: id => dispatch({ type: 'INC_MAX_ID', value: id })
   }
 }
 
