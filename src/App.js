@@ -96,16 +96,27 @@ function App() {
   const onColorChange = e => {
     setFillColor(e.target.value)
 
-    const id = activeFigure.id
+    const { id } = activeFigure
     const prevFigures = [...figures]
-    const active = prevFigures.filter(fig => fig.id === id)[0]
-    const index = prevFigures.findIndex(figure => figure === active)
+    // const active = prevFigures.filter(fig => fig.id === id)[0]
+    const index = prevFigures.findIndex(figure => figure.id === id)
     prevFigures[index].color = e.target.value
     setFigures(prevFigures)
   }
 
-  window.figures = figures
-  window.activeFigure = activeFigure
+  // Удаление выделенного объекта по нажатию на 'Delete'
+  const onKeyDown = (e, index) => {
+    if (e.code === 'Delete') {
+      const prevFigures = [...figures]
+      prevFigures.splice(index, 1)
+      setFigures(prevFigures)
+      setActiveFigure(defaultFigure)
+      setFillColor(defaultFillColor)
+    }
+  }
+
+  // window.figures = figures
+  // window.activeFigure = activeFigure
 
   return (
     <main className={style.main}>
@@ -122,6 +133,7 @@ function App() {
         onFigureClickHandler={onFigureClickHandler}
         onChangePositionHandler={onChangePositionHandler}
         resetActiveFigure={resetActiveFigure}
+        onKeyDown={onKeyDown}
       />
     </main>
   )

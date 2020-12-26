@@ -89,6 +89,7 @@ const Content = props => {
                   figure={figure}
                   onMouseDown={onMouseDown}
                   onFigureClickHandler={props.onFigureClickHandler}
+                  onKeyDown={props.onKeyDown}
                 />
                 :
                 // прямоугольники
@@ -100,6 +101,7 @@ const Content = props => {
                     figure={figure}
                     onMouseDown={onMouseDown}
                     onFigureClickHandler={props.onFigureClickHandler}
+                    onKeyDown={props.onKeyDown}
                   />
                   :
                   // в остальных случаях:
