@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+## Нужно разработать
+Приложение, позволяющее создавать композицию из геометрических фигур: прямоугольника и треугольника, по макету. Приложение состоит из двух областей: левая панель и рабочая область.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Левая панель
+В левой панели расположены кнопки для создания фигур. Доступные типы фигур: прямоугольник и треугольник. При создании фигуры, она появляется в центре рабочей области. Размер фигур может быть статическим, или быть рандомным. Панель не изменяется по ширине, по высоте занимает всю доступную область.
 
-In the project directory, you can run:
+На панели располагается контрол для изменения цвета фона фигуры. Для изменения цвета контура или фона фигуры необходимо нажать на кнопку с цветом. При нажатии должен появляться стандартный color picker. Выбранный цвет должен отображаться в кнопке. Контрол выбора цвета не доступен (задизаблен), если в рабочей области не выделена фигура. При выделении фигуры, контрол показывает цвет выделенной фигуры.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Рабочая область
+Рабочая область должна занимать по ширине всю доступную области между левой и правой панелями. По высоте всю доступную область. Созданные фигуры должны появляться в центре рабочей области. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Доступные операции над фигурой:
+- Выделение фигуры. Выделение происходит по клику на фигуру. При выделении у фигуры появляется синий прямоугольник, с штриховой линией, в который вписана фигура.
+- Перемещение фигуры. Фигуру можно перемещать мышкой. При перемещении фигура должна выделяться.
+- Удаление фигуры. Фигуру можно удалить при нажатии на кнопку Delete, если она была выделена.
 
-### `npm test`
+Все изменения, сделанные во время работы, должны сохраниться в local storage. При загрузки приложение должно восстановить свое состояние, применив данные из local storage.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Требования
+-Язык программирования: Typescript, или же ванильный JS + статическая проверка типов с помощью Typescript (в этом случае нужно добиться, чтобы типы JS корректно выводились (без any), можно использовать jsdoc-ми).
+- Ванильный CSS и HTML (без использования препроцессоров и шаблонизаторов). 
+- Приложение должно быть реализовано с использованием фреймворка React в функциональном стиле на хуках.
+- Желательно использование state manager-а (по вашему выбору)
+- Дополнительно никакие сторонние решения (библиотеки) использоваться НЕ ДОЛЖНЫ.
