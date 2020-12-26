@@ -9,13 +9,13 @@ import {Provider} from 'react-redux'
 import mainReducer from './redux/mainReducer'
 import config from './config/config'
 
-function logger(store) {
-  return next => action => {
-    console.log('will dispatch', action)
-    const returnValue = next(action)
-    return returnValue
-  }
-}
+// function logger(store) {
+//   return next => action => {
+//     console.log('will dispatch', action)
+//     const returnValue = next(action)
+//     return returnValue
+//   }
+// }
 
 function saveToLocalStorage(store) {
   return next => action => {
