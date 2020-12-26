@@ -1,134 +1,98 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
-import { addNewFigure, incMaxId, setDefaultFillColor, setFillColor } from './redux/actions/actionCreators'
-
-const defaultFigure = null
+import { addNewFigure, getactiveFigure, incMaxId, zIndexUpdateHandler, resetActiveFigure, setDefaultFillColor, setFillColor, onSavePosition, getNewColorToFigure, onKeyDownListener } from './redux/actions/actionCreators'
 
 function App (props) {
 
-  // figures in Content area
-  const [figures, setFigures] = useState([
-    {
-      id: 1,
-      type: 'rectangle',
-      color: '#008000',
-      position: {
-        top: 'calc(50% - 50px)',
-        left: 'calc(50% - 100px)'
-      }
-    },
-    {
-      id: 2,
-      type: 'triangle',
-      color: '#ff0000',
-      position: {
-        top: 'calc(50% + 100px)',
-        left: 'calc(50% + 50px)'
-      }
-    },
-  ])
-
-  // регистрация максимального id для задания z-index в стилях (последняя выбранная фигура будет поверх остальных)
-  const [maxId, setMaxId] = useState(2)
-
-  const [activeFigure, setActiveFigure] = useState(defaultFigure)
-
-  // добавление фигуры в массив figures - отображение в рабочей области программы
-  // 50px - половина высоты; 100px - половина ширины
+  // добавление фигуры в рабочую область приложения
   const createFigureHandler = name => props.addNewFigure(name)
 
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
     e.stopPropagation()
-
     // заливка кнопки в сайдбаре цветом выбранной фигуры
     props.setFillColor(figure.color)
-
-    setActiveFigure(figure)
-
+    // сохранение выделенной фигуры
+    props.getActiveFigure(figure)
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
-    if (figure.id < maxId) {
-      const figuresState = [...figures]
-      figuresState[index].id = maxId + 1
-      setFigures(figuresState)
-      setMaxId(maxId + 1)
-    }
+    props.zIndexUpdateHandler(figure.id, index)
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
   const onChangePositionHandler = (index, top, left) => {
-    const figuresState = [...figures]
-    figuresState[index].position.top = top
-    figuresState[index].position.left = left
-    setFigures(figuresState)
+    props.onSavePosition(index, top, left)
   }
 
   // сбросить выделение активной фигуры
   const resetActiveFigure = (e) => {
-    setActiveFigure(defaultFigure)
+    props.resetActiveFigure()
     props.setDefaultFillColor()
   }
 
   // Color Picker
   const onColorChange = e => {
     props.setFillColor(e.target.value)
-
-    const { id } = activeFigure
-    const prevFigures = [...figures]
-    const index = prevFigures.findIndex(figure => figure.id === id)
-    prevFigures[index].color = e.target.value
-    setFigures(prevFigures)
+    props.getNewColorToFigure(e.target.value)
   }
 
-  // Удаление выделенного объекта по нажатию на 'Delete'
+  // Удаление выделенного объекта по нажатию на кнопку клавиатуры
   const onKeyDown = (e, index) => {
-    if (e.code === 'Delete') {
-      const prevFigures = [...figures]
-      prevFigures.splice(index, 1)
-      setFigures(prevFigures)
-      setActiveFigure(defaultFigure)
-      props.setDefaultFillColor()
-    }
+    props.onKeyDownListener(e.code, index)
   }
-
-  window.props = props
 
   return (
     <main className={style.main}>
       <Sidebar
         createFigureHandler={createFigureHandler}
-        activeFigure={activeFigure}
+        activeFigure={props.activeFigure}
         color={props.fillColor}
         onColorChange={onColorChange}
         resetActiveFigure={resetActiveFigure}
       />
       <Content
         figures={props.figures}
-        activeFigure={activeFigure}
+        activeFigure={props.activeFigure}
         onFigureClickHandler={onFigureClickHandler}
         onChangePositionHandler={onChangePositionHandler}
         resetActiveFigure={resetActiveFigure}
         onKeyDown={onKeyDown}
       />
+      {/* CONSOLE_LOG_PROPS */}
+      <button style={{height: '5%'}} onClick={() => {
+        console.log(props)
+      }}>
+      {/* /CONSOLE_LOG_PROPS */}
+        props
+      </button>
     </main>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    fillColor: state.fillColorState.fillColor,
     figures: state.figuresState.figures,
     maxId: state.figuresState.maxId,
+    activeFigure: state.figuresState.activeFigure,
+    fillColor: state.fillColorState.fillColor,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    // figures
     addNewFigure: name => dispatch(addNewFigure(name)),
     incMaxId: () => dispatch(incMaxId()),
+    getActiveFigure: figure => dispatch(getactiveFigure(figure)),
+    resetActiveFigure: () => dispatch(resetActiveFigure()),
+    zIndexUpdateHandler: (id, index) => dispatch(zIndexUpdateHandler(id, index)),
+    onSavePosition: (index, top, left) => dispatch(onSavePosition(index, top, left)),
+    getNewColorToFigure: (color) => dispatch(getNewColorToFigure(color)),
+    onKeyDownListener: (eCode, index) => dispatch(onKeyDownListener(eCode, index)),
+
+    // fill color
     setDefaultFillColor: () => dispatch(setDefaultFillColor()),
     setFillColor: color => dispatch(setFillColor(color)),
   }
