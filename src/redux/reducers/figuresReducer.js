@@ -1,7 +1,5 @@
+import config from '../../config/config'
 import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, Z_INDEX_UPDATE, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, DELETE_KEY_LISTENER } from "../actions/actionTypes"
-
-const defaultFigureColor = '#FF8C00'
-const eCodeDelete = 'Delete'
 
 const initialState = {
   figures: [
@@ -37,7 +35,7 @@ export default function figuresReducer (state = initialState, action) {
       figures.push({
         id: maxId,
         type: action.value,
-        color: defaultFigureColor,
+        color: config.DEFAULT_FIGURE_COLOR,
         position: {
           top: 'calc(50% - 50px)',
           left: 'calc(50% - 100px)'
@@ -92,7 +90,7 @@ export default function figuresReducer (state = initialState, action) {
         figures: prevFigures2
       }
     case DELETE_KEY_LISTENER:
-      if (action.eCode === eCodeDelete) {
+      if (action.eCode === config.DELETE_KEY_DOWN) {
         const prevFigures3 = state.figures
         prevFigures3.splice(action.index, 1)
         return {
