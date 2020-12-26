@@ -1,28 +1,12 @@
 import config from '../../config/config'
 import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "../actions/actionTypes"
 
-const initialState = {
-  figures: [
-    {
-      id: 1,
-      type: 'rectangle',
-      color: '#008000',
-      position: {
-        top: 'calc(50% - 50px)',
-        left: 'calc(50% - 100px)'
-      }
-    },
-    {
-      id: 2,
-      type: 'triangle',
-      color: '#ff0000',
-      position: {
-        top: 'calc(50% + 100px)',
-        left: 'calc(50% + 50px)'
-      }
-    },
-  ],
-  maxId: 2,
+// initialState загружается из localStorage, если такая запись есть
+const initialState = localStorage.getItem(config.LOCAL_STORAGE_FIGURE) 
+? JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE))
+: {
+  figures: [],
+  maxId: 0,
   activeFigure: null
 }
 
