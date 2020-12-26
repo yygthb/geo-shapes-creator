@@ -1,13 +1,10 @@
 import config from '../../config/config'
-import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "../actions/actionTypes"
+import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "../actions/actionTypes"
 
-// initialState загружается из localStorage, если такая запись есть
-const initialState = localStorage.getItem(config.LOCAL_STORAGE_FIGURE) 
-? JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE))
-: {
-  figures: [],
-  maxId: 0,
-  activeFigure: null
+const initialState = {
+  figures: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE)).figures || [],
+  maxId: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE)).maxId || 0,
+  activeFigure: null,
 }
 
 export default function figuresReducer (state = initialState, action) {
@@ -30,11 +27,6 @@ export default function figuresReducer (state = initialState, action) {
         figures: figures,
         maxId: maxId,
         activeFigure: null,
-      }
-    case INC_MAX_ID:
-      return {
-        ...state,
-        maxId: state.maxId + 1
       }
     case GET_ACTIVE_FIGURE:
       if (action.value.figure.id < state.maxId) {
@@ -77,6 +69,13 @@ export default function figuresReducer (state = initialState, action) {
       if (action.eCode === config.DELETE_KEY_DOWN) {
         const prevFigures3 = state.figures
         prevFigures3.splice(action.index, 1)
+        if (prevFigures3.length === 0) {
+          return {
+            figures: [],
+            maxId: 0,
+            activeFigure: null,
+          }
+        }
         return {
           ...state,
           figures: prevFigures3,

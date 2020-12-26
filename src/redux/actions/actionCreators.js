@@ -1,15 +1,9 @@
-import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "./actionTypes";
+import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE, SAVE_POSITION, GET_NEW_COLOR_TO_ACTIVE_FIGURE, KEY_LISTENER_DELETE } from "./actionTypes";
 
 export function addNewFigure(name) {
   return {
     type: ADD_NEW_FIGURE,
     name
-  }
-}
-
-export function incMaxId() {
-  return {
-    type: INC_MAX_ID
   }
 }
 

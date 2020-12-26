@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
-import { addNewFigure, getactiveFigure, incMaxId, resetActiveFigure, onSavePosition, getNewColorToFigure, onDeleteKeyDownListener } from './redux/actions/actionCreators'
+import { addNewFigure, getactiveFigure, resetActiveFigure, onSavePosition, getNewColorToFigure, onDeleteKeyDownListener } from './redux/actions/actionCreators'
 
 function App (props) {
 
@@ -56,13 +56,6 @@ function App (props) {
         resetActiveFigure={resetActiveFigure}
         onKeyDown={onKeyDown}
       />
-      {/* CONSOLE_LOG_PROPS */}
-      <button style={{height: '5%'}} onClick={() => {
-        console.log(props)
-      }}>
-      {/* /CONSOLE_LOG_PROPS */}
-        props
-      </button>
     </main>
   )
 }
@@ -79,7 +72,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addNewFigure: name => dispatch(addNewFigure(name)),
-    incMaxId: () => dispatch(incMaxId()),
     getActiveFigure: value => dispatch(getactiveFigure(value)),
     resetActiveFigure: () => dispatch(resetActiveFigure()),
     onSavePosition: (index, top, left) => dispatch(onSavePosition(index, top, left)),
