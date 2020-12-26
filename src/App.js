@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
 import style from './App.module.css'
+/*
+Если главный файл в папке назвать index.js, то можно импортировать просто папку, так удобней:
+./components/Content/Content.js => ./components/Content/index.js
+и импортируем
+import Content from './components/Content'
+ */
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 
@@ -96,14 +102,18 @@ function App() {
   const onColorChange = e => {
     setFillColor(e.target.value)
 
-    const id = activeFigure.id
+    const { id } = activeFigure
     const prevFigures = [...figures]
-    const active = prevFigures.filter(fig => fig.id === id)[0]
-    const index = prevFigures.findIndex(figure => figure === active)
+    // const active = prevFigures.filter(fig => fig.id === id)[0]
+    const index = prevFigures.findIndex(figure => figure.id === id)
     prevFigures[index].color = e.target.value
     setFigures(prevFigures)
   }
 
+  /*
+  Зачем это? В любом случае это "грязный код" который засоряет глобальное пространство
+  Чтобы это делать нужно иметь очень веские причины
+   */
   window.figures = figures
   window.activeFigure = activeFigure
 
