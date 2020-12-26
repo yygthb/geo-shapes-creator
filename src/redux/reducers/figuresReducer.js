@@ -34,7 +34,7 @@ export default function figuresReducer (state = initialState, action) {
       const maxId = state.maxId + 1
       figures.push({
         id: maxId,
-        type: action.value,
+        type: action.name,
         color: config.DEFAULT_FIGURE_COLOR,
         position: {
           top: 'calc(50% - 50px)',
@@ -54,7 +54,7 @@ export default function figuresReducer (state = initialState, action) {
     case GET_ACTIVE_FIGURE:
       return {
         ...state,
-        activeFigure: action.value
+        activeFigure: action.activeFigure
       }
     case RESET_ACTIVE_FIGURE:
       return {

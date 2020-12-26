@@ -14,7 +14,7 @@ export default function fillColorReducer (state = initialState, action) {
       }
     case SET_FILL_COLOR:
       return {
-        fillColor: action.value
+        fillColor: action.color
       }
     case DELETE_KEY_LISTENER:
       if (action.eCode === config.DELETE_KEY_DOWN) {

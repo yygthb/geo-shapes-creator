@@ -4,7 +4,7 @@ import { ADD_NEW_FIGURE, GET_ACTIVE_FIGURE, INC_MAX_ID, Z_INDEX_UPDATE, RESET_AC
 export function addNewFigure(name) {
   return {
     type: ADD_NEW_FIGURE,
-    value: name
+    name
   }
 }
 
@@ -17,7 +17,7 @@ export function incMaxId() {
 export function getactiveFigure(activeFigure) {
   return {
     type: GET_ACTIVE_FIGURE,
-    value: activeFigure
+    activeFigure
   }
 }
 
@@ -66,6 +66,6 @@ export function setDefaultFillColor() {
 export function setFillColor(color) {
   return {
     type: SET_FILL_COLOR,
-    value: color
+    color
   }
 }
