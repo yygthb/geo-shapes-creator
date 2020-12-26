@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
+import {connect} from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 
 const defaultFigure = null
-const defaultFillColor = '#FFFFFF'
-const newFigureColor = '#FF8C00'
+const newFigureColor = '#FF8C00' // darkorange - цвет для новой фигуры по-умолчанию
 
-function App() {
+function App (props) {
 
   // figures in Content area
   const [figures, setFigures] = useState([
@@ -37,11 +37,10 @@ function App() {
   const [activeFigure, setActiveFigure] = useState(defaultFigure)
 
   // set Fill background
-  const [fillColor, setFillColor] = useState(defaultFillColor)
+  // const [fillColor, setFillColor] = useState(defaultFillColor)
 
   // добавление фигуры в массив figures - отображение в рабочей области программы
   // 50px - половина высоты; 100px - половина ширины
-  // darkorange - цвет для новой фигуры по-умолчанию
   const createFigureHandler = name => {
     const figuresState = [...figures]
     figuresState.push({
@@ -57,17 +56,13 @@ function App() {
     setMaxId(maxId + 1)
   }
 
-  // const deleteFigure = e => {
-  //   console.log('keydown listener')
-  // }
-
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
     e.stopPropagation()
 
     // заливка кнопки в сайдбаре цветом выбранной фигуры
     setActiveFigure(figure)
-    setFillColor(figure.color)
+    props.setFillColor(figure.color)
 
     // проверка, нужно ли перемещать выбранную фигуру на передний план относительно других
     if (figure.id < maxId) {
@@ -89,12 +84,13 @@ function App() {
   // сбросить выделение активной фигуры
   const resetActiveFigure = (e) => {
     setActiveFigure(defaultFigure)
-    setFillColor(defaultFillColor)
+    props.setDefaultFillColor()
   }
 
   // Color Picker
   const onColorChange = e => {
-    setFillColor(e.target.value)
+    // setFillColor(e.target.value)
+    props.setFillColor(e.target.value)
 
     const { id } = activeFigure
     const prevFigures = [...figures]
@@ -111,19 +107,16 @@ function App() {
       prevFigures.splice(index, 1)
       setFigures(prevFigures)
       setActiveFigure(defaultFigure)
-      setFillColor(defaultFillColor)
+      props.setDefaultFillColor()
     }
   }
-
-  // window.figures = figures
-  // window.activeFigure = activeFigure
 
   return (
     <main className={style.main}>
       <Sidebar
         createFigureHandler={createFigureHandler}
         activeFigure={activeFigure}
-        color={fillColor}
+        color={props.fillColor}
         onColorChange={onColorChange}
         resetActiveFigure={resetActiveFigure}
       />
@@ -139,4 +132,17 @@ function App() {
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    fillColor: state.fillColor
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setDefaultFillColor: () => dispatch({ type: 'SET_DEFAULT_FILL_COLOR' }),
+    setFillColor: color => dispatch({ type: 'SET_FILL_COLOR', value: color }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
