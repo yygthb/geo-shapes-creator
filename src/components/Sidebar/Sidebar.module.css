@@ -6,8 +6,7 @@
 }
 
 .sidebar {
-  /* width: 256px; */
-  width: 300px;
+  width: 256px;
   background-color: #ccc;
   text-align: center;
   padding: 50px 35px;

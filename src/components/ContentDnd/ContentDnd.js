@@ -195,8 +195,14 @@ const ContentDnd = props => {
     })
 
     document.ondragover = function(e) {
+      const borderLeft = 256 - mid.left
+      console.log('borderLeft: ', borderLeft)
+
       target.style.top = `${e.clientY - mid.top - shiftTop}px`
-      target.style.left = `${e.clientX - mid.left - shiftLeft}px`
+      target.style.left = (-e.clientX + shiftLeft) > borderLeft 
+      ? `${borderLeft}px` 
+      : `${e.clientX - mid.left - shiftLeft}px`
+      // target.style.left = `${e.clientX - mid.left - shiftLeft}px`
     }
   }
 
@@ -230,7 +236,7 @@ const ContentDnd = props => {
       <div className={style.content_mid}>
         <div
           className={classes.join(' ')}
-          draggable={true}
+      draggable="true"
           ref={boxRef}
           style={{
             top: `${coord.top}px`,

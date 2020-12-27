@@ -41,10 +41,6 @@ function App (props) {
     props.onDeleteKeyDownListener(e.code, index)
   }
 
-  // ======================== ContentDnd dev ==============================
-
-  // ======================== /ContentDnd dev =============================
-
   return (
     <main className={style.main}>
       <Sidebar
@@ -54,15 +50,15 @@ function App (props) {
         onColorChange={onColorChange}
         resetActiveFigure={resetActiveFigure}
       />
-      {/* <Content
+      <Content
         figures={props.figures}
         activeFigure={props.activeFigure}
         onFigureClickHandler={onFigureClickHandler}
         onChangePositionHandler={onChangePositionHandler}
         resetActiveFigure={resetActiveFigure}
         onKeyDown={onKeyDown}
-      /> */}
-      <ContentDnd />
+      />
+      {/* <ContentDnd /> */}
     </main>
   )
 }
