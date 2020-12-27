@@ -6,7 +6,6 @@ const Triangle = ({classes, figure, index, ...props}) => {
   return (
     <svg width="200" height="100"
       className={classes.join(' ')}
-      ref={props.activeFigureRef}
       id={`${style[figure.type]}_${figure.id}`}
       style={{
         zIndex: figure.id,

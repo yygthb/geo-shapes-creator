@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
-import ContentDnd from './components/ContentDnd/ContentDnd'
 import Sidebar from './components/Sidebar/Sidebar'
 import { addNewFigure, getactiveFigure, resetActiveFigure, onSavePosition, getNewColorToFigure, onDeleteKeyDownListener } from './redux/actions/actionCreators'
 
@@ -58,7 +57,6 @@ function App (props) {
         resetActiveFigure={resetActiveFigure}
         onKeyDown={onKeyDown}
       />
-      {/* <ContentDnd /> */}
     </main>
   )
 }

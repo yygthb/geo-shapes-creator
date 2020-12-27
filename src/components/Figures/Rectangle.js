@@ -7,7 +7,6 @@ const Rectangle = ({classes, figure, index, ...props}) => {
   return (
     <svg width="200" height="100"
       draggable="true"
-      ref={props.activeFigureRef}
       className={classes.join(' ')}
       id={`${style[figure.type]}_${figure.id}`}
       style={{
