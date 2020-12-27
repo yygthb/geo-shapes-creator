@@ -4,8 +4,22 @@ import Rectangle from '../Figures/Rectangle'
 import Triangle from '../Figures/Triangle'
 import style from './Content.module.css'
 
+// вычисление центра "рабочей области" - позиционирование фигуры относительно этого центра
+const getMidCoordinates = el => {
+  const top = el.getBoundingClientRect().top
+  const bottom = el.getBoundingClientRect().bottom
+  const left = el.getBoundingClientRect().left
+  const right = el.getBoundingClientRect().right
+
+  const midY = (bottom - top) / 2
+  const midX = (right - left) / 2 + left
+
+  return [midY, midX]
+}
+
 const Content = props => {
   const activeId = props.activeFigure !== null ? props.activeFigure.id : 0
+  const contentRef = React.createRef()
 
   // перемещение выделенной фигуры в рабочей области приложения 
   const onMouseDown = (e, figure, index) => {
@@ -13,22 +27,8 @@ const Content = props => {
     //  ||  при нажатии Delete фигура удаляется (даже если не выделена)
     props.onFigureClickHandler(e, figure, index)
 
-    // вычисление центра "рабочей области" - позиционирование фигуры относительно этого центра
-    const getMidCoordinates = el => {
-      const top = el.getBoundingClientRect().top
-      const bottom = el.getBoundingClientRect().bottom
-      const left = el.getBoundingClientRect().left
-      const right = el.getBoundingClientRect().right
-
-      const midY = (bottom - top) / 2
-      const midX = (right - left) / 2 + left
-
-      return [midY, midX]
-    }
-
     // центр области Content
-    const content = document.querySelector('#content')
-    const [midY, midX] = getMidCoordinates(content)
+    const [midY, midX] = getMidCoordinates(contentRef.current)
 
     // svg-фигура для перемещения
     const target = document.querySelector(`#${e.target.className.baseVal}`)
@@ -68,7 +68,7 @@ const Content = props => {
   return (
     <div
       className={style.content}
-      id="content"
+      ref={contentRef}
       onClick={e => props.resetActiveFigure(e)}
     >
       <div className={style.content_mid}>
