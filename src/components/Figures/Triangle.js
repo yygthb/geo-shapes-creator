@@ -21,6 +21,7 @@ const Triangle = ({classes, figure, index, ...props}) => {
           props.onMouseDown(e, figure, index)
         }}
         onClick={(e) => props.onFigureClickHandler(e, figure, index)}
+        onContextMenu={e => e.preventDefault()}
         onDragStart={e => e.preventDefault()}
         tabIndex={index}
         onKeyDown={e => props.onKeyDown(e, index)}
