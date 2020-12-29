@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/geo-shapes-creator/static/css/main.248a82f1.chunk.css",
-    "main.js": "/geo-shapes-creator/static/js/main.0f0921f3.chunk.js",
-    "main.js.map": "/geo-shapes-creator/static/js/main.0f0921f3.chunk.js.map",
+    "main.css": "/geo-shapes-creator/static/css/main.9e45595d.chunk.css",
+    "main.js": "/geo-shapes-creator/static/js/main.1cb99869.chunk.js",
+    "main.js.map": "/geo-shapes-creator/static/js/main.1cb99869.chunk.js.map",
     "runtime-main.js": "/geo-shapes-creator/static/js/runtime-main.3076f82c.js",
     "runtime-main.js.map": "/geo-shapes-creator/static/js/runtime-main.3076f82c.js.map",
     "static/js/2.06aefa75.chunk.js": "/geo-shapes-creator/static/js/2.06aefa75.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.349e6dc9.chunk.js": "/geo-shapes-creator/static/js/3.349e6dc9.chunk.js",
     "static/js/3.349e6dc9.chunk.js.map": "/geo-shapes-creator/static/js/3.349e6dc9.chunk.js.map",
     "index.html": "/geo-shapes-creator/index.html",
-    "static/css/main.248a82f1.chunk.css.map": "/geo-shapes-creator/static/css/main.248a82f1.chunk.css.map",
+    "static/css/main.9e45595d.chunk.css.map": "/geo-shapes-creator/static/css/main.9e45595d.chunk.css.map",
     "static/js/2.06aefa75.chunk.js.LICENSE.txt": "/geo-shapes-creator/static/js/2.06aefa75.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3076f82c.js",
     "static/js/2.06aefa75.chunk.js",
-    "static/css/main.248a82f1.chunk.css",
-    "static/js/main.0f0921f3.chunk.js"
+    "static/css/main.9e45595d.chunk.css",
+    "static/js/main.1cb99869.chunk.js"
   ]
 }
