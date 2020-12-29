@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 const style = {}
 
-const Rectangle = ({classes, figure, index, ...props}) => {
+const Rectangle = ({ classes, figure, index, ...props }) => {
 
   return (
     <svg width="200" height="100"
@@ -33,10 +33,18 @@ const Rectangle = ({classes, figure, index, ...props}) => {
 }
 
 Rectangle.propTypes = {
+  onkeydown: PropTypes.func,
   classes: PropTypes.arrayOf(PropTypes.string),
-  figure: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  onkeydown: PropTypes.func
+  figure: PropTypes.shape({
+    id: PropTypes.number,
+    type: PropTypes.string,
+    color: PropTypes.string,
+    position: PropTypes.shape({
+      top: PropTypes.string,
+      left: PropTypes.string,
+    })
+  }).isRequired
 }
 
 export default Rectangle

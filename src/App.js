@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 import { addNewFigure, getactiveFigure, resetActiveFigure, onSavePosition, getNewColorToFigure, onDeleteKeyDownListener } from './redux/actions/actionCreators'
 
-function App (props) {
+function App(props) {
 
   // добавление фигуры в рабочую область приложения
   const createFigureHandler = (e, name) => {
@@ -17,7 +17,7 @@ function App (props) {
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e, figure, index) => {
     e.stopPropagation()
-    props.getActiveFigure({figure, index})
+    props.getActiveFigure({ figure, index })
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
@@ -64,7 +64,15 @@ function App (props) {
 App.propTypes = {
   activeFigure: PropTypes.object,
   fillColor: PropTypes.string.isRequired,
-  figures: PropTypes.arrayOf(PropTypes.object).isRequired
+  figures: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    type: PropTypes.string,
+    color: PropTypes.string,
+    position: PropTypes.shape({
+      top: PropTypes.string,
+      left: PropTypes.string,
+    }),
+  })).isRequired
 }
 
 const mapStateToProps = state => {

@@ -6,10 +6,6 @@ import style from './Content.module.css'
 
 // вычисление центра "рабочей области" - позиционирование фигуры относительно этого центра
 const getMidCoordinates = el => {
-  // const top = el.getBoundingClientRect().top
-  // const bottom = el.getBoundingClientRect().bottom
-  // const left = el.getBoundingClientRect().left
-  // const right = el.getBoundingClientRect().right
   const { top, bottom, left, right } = el.getBoundingClientRect()
 
   const midY = (bottom - top) / 2
@@ -106,8 +102,15 @@ const Content = props => {
 
 Content.propTypes = {
   activeFigure: PropTypes.object,
-  figures: PropTypes.arrayOf(PropTypes.object)
-
+  figures: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    type: PropTypes.string,
+    color: PropTypes.string,
+    position: PropTypes.shape({
+      top: PropTypes.string,
+      left: PropTypes.string,
+    }),
+  })).isRequired
 }
 
 export default Content
