@@ -6,10 +6,11 @@ import style from './Content.module.css'
 
 // вычисление центра "рабочей области" - позиционирование фигуры относительно этого центра
 const getMidCoordinates = el => {
-  const top = el.getBoundingClientRect().top
-  const bottom = el.getBoundingClientRect().bottom
-  const left = el.getBoundingClientRect().left
-  const right = el.getBoundingClientRect().right
+  // const top = el.getBoundingClientRect().top
+  // const bottom = el.getBoundingClientRect().bottom
+  // const left = el.getBoundingClientRect().left
+  // const right = el.getBoundingClientRect().right
+  const { top, bottom, left, right } = el.getBoundingClientRect()
 
   const midY = (bottom - top) / 2
   const midX = (right - left) / 2 + left
@@ -21,46 +22,34 @@ const Content = props => {
   const activeId = props.activeFigure !== null ? props.activeFigure.id : 0
   const contentRef = React.createRef()
 
-  // перемещение выделенной фигуры в рабочей области приложения 
   const onMouseDown = (e, figure, index) => {
-    //  ||  при перемещении фигура получает класс "active" - добавляются границы 
-    //  ||  при нажатии Delete фигура удаляется (даже если не выделена)
     props.onFigureClickHandler(e, figure, index)
 
     // центр области Content
     const [midY, midX] = getMidCoordinates(contentRef.current)
 
     // svg-фигура для перемещения
-    const target = document.querySelector(`#${e.target.className.baseVal}`)
+    const target = e.currentTarget.parentNode
 
     // координаты для сдвига по осям (корректировка клика мыши в определенную область фигуры)
     let shiftY = e.clientY - target.getBoundingClientRect().top
     let shiftX = e.clientX - target.getBoundingClientRect().left
 
-    // задание координат для абсолютного позиционирования перемещаемой фигуры относительно центра Content
-    function moveAt(pageY, pageX) {
-      const top = pageY - midY - shiftY + 'px'
-      const left = pageX - midX - shiftX + 'px'
-
-      target.style.top = top
-      target.style.left = left
+    // позиционирование фигуры при перемещении
+    const moveFigureAt = e => {
+      target.style.top = e.pageY - midY - shiftY + 'px'
+      target.style.left = e.pageX - midX - shiftX + 'px'
     }
 
-    // перемещение фигуры в области Content
-    function onMouseMove(e) {
-      // moveAt(e.pageY, e.pageX)
-      moveAt(e.clientY, e.clientX)
-    }
-
-    document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('mousemove', moveFigureAt)
 
     target.onmouseup = function () {
-      // записать позицию выделенной фигуры в state для сохранения в localStorage
+      document.removeEventListener('mousemove', moveFigureAt)
+
+      // сохранить позицию фигуры
       const top = target.style.top
       const left = target.style.left
       props.onChangePositionHandler(index, top, left)
-
-      document.removeEventListener('mousemove', onMouseMove)
       target.onmouseup = null
     };
   }
@@ -84,7 +73,7 @@ const Content = props => {
               figure.type === 'triangle'
                 ?
                 // треугольники
-                <Triangle key={index} 
+                <Triangle key={index}
                   classes={classes}
                   index={index}
                   figure={figure}
@@ -118,7 +107,7 @@ const Content = props => {
 Content.propTypes = {
   activeFigure: PropTypes.object,
   figures: PropTypes.arrayOf(PropTypes.object)
-  
+
 }
 
 export default Content
