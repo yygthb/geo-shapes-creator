@@ -16,7 +16,11 @@ const Triangle = ({ classes, figure, index, ...props }) => {
       <polygon points="0,100 100,0 200,100"
         fill={figure.color || 'grey'}
         className={`${style[figure.type]}_${figure.id}`}
-        style={{ cursor: 'pointer', outline: 'none' }}
+        style={{
+          cursor: 'pointer',
+          outline: 'none',
+          pointerEvents: 'all'
+        }}
         onMouseDown={e => {
           props.onMouseDown(e, figure, index)
         }}

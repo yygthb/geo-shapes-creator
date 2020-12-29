@@ -37,6 +37,7 @@
 
 svg {
   box-sizing: content-box;
+  pointer-events: none;
 }
 
 .triangle {

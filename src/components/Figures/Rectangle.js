@@ -18,7 +18,11 @@ const Rectangle = ({ classes, figure, index, ...props }) => {
       <rect x="0" y="0" width="200" height="100"
         fill={figure.color || 'grey'}
         className={`${style[figure.type]}_${figure.id}`}
-        style={{ cursor: 'pointer', outline: 'none' }}
+        style={{
+          cursor: 'pointer',
+          outline: 'none',
+          pointerEvents: 'all'
+        }}
         onMouseDown={e => {
           props.onMouseDown(e, figure, index)
         }}
