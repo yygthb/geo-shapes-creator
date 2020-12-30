@@ -10,7 +10,7 @@ export default function fillColorReducer (state = initialState, action) {
   switch(action.type) {
     case ADD_NEW_FIGURE:
       return {
-        fillColor: config.DEFAULT_FILL_COLOR
+        fillColor: config.DEFAULT_FIGURE_COLOR
       }
     case RESET_ACTIVE_FIGURE:
       return {

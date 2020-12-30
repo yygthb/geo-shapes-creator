@@ -16,24 +16,25 @@ const initialState = localStorage.getItem(config.LOCAL_STORAGE_FIGURE)
 export default function figuresReducer(state = initialState, action) {
 
   switch (action.type) {
-    case ADD_NEW_FIGURE: {
+    case ADD_NEW_FIGURE: 
+      const newFigure = {
+        id: state.maxId + 1,
+        type: action.name,
+        color: config.DEFAULT_FIGURE_COLOR,
+        position: {
+          top: 'calc(50% - 50px)',
+          left: 'calc(50% - 100px)'
+        }
+      }
       return {
         ...state,
         maxId: state.maxId + 1,
-        activeFigure: null,
-        figures: [...state.figures, {
-          id: state.maxId + 1,
-          type: action.name,
-          color: config.DEFAULT_FIGURE_COLOR,
-          position: {
-            top: 'calc(50% - 50px)',
-            left: 'calc(50% - 100px)'
-          }
-        }],
+        activeFigure: newFigure,
+        figures: [...state.figures, newFigure],
       }
-    }
+    
 
-    case GET_ACTIVE_FIGURE: {
+    case GET_ACTIVE_FIGURE: 
       if (action.value.figure.id < state.maxId) {
         const figures = state.figures
         figures[action.value.index].id = state.maxId + 1
@@ -48,7 +49,7 @@ export default function figuresReducer(state = initialState, action) {
         ...state,
         activeFigure: action.value.figure
       }
-    }
+    
 
     case RESET_ACTIVE_FIGURE:
       return {
@@ -56,7 +57,7 @@ export default function figuresReducer(state = initialState, action) {
         activeFigure: null
       }
 
-    case SAVE_POSITION: {
+    case SAVE_POSITION: 
       const figures = state.figures
       figures[action.index].position.top = action.top
       figures[action.index].position.left = action.left
@@ -64,17 +65,10 @@ export default function figuresReducer(state = initialState, action) {
         ...state,
         figures: figures
       }
-    }
+    
 
-    case GET_NEW_COLOR_TO_ACTIVE_FIGURE: {
+    case GET_NEW_COLOR_TO_ACTIVE_FIGURE: 
       const activeFigureId = state.activeFigure.id
-      // const figures = state.figures
-      // const index = figures.findIndex(figure => figure.id === activeFigureId)
-      // figures[index].color = action.color
-      // return {
-      //   ...state,
-      //   figures: figures
-      // }
       return {
         ...state,
         figures: [...state.figures.map(f => {
@@ -84,9 +78,9 @@ export default function figuresReducer(state = initialState, action) {
           return f
         })]
       }
-    }
+    
 
-    case KEY_LISTENER_DELETE: {
+    case KEY_LISTENER_DELETE: 
       if (action.eCode === config.DELETE_KEY_DOWN) {
         const figures = state.figures
         figures.splice(action.index, 1)
@@ -104,7 +98,7 @@ export default function figuresReducer(state = initialState, action) {
         }
       }
       return state
-    }
+    
 
     default:
       return state
