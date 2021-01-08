@@ -1,8 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-const style = {}
+import { FigurePropsType } from '../../types'
 
-const Triangle = ({ classes, figure, index, ...props }) => {
+const style: any = {}
+
+const Rectangle: React.FC<FigurePropsType> = ({ classes, figure, index, ...props }) => {
+
   return (
     <svg width="200" height="100"
       className={classes.join(' ')}
@@ -10,10 +12,10 @@ const Triangle = ({ classes, figure, index, ...props }) => {
       style={{
         zIndex: figure.id,
         top: figure.position.top,
-        left: figure.position.left,
+        left: figure.position.left
       }}
     >
-      <polygon points="0,100 100,0 200,100"
+      <rect x="0" y="0" width="200" height="100"
         fill={figure.color || 'grey'}
         className={`${style[figure.type]}_${figure.id}`}
         style={{
@@ -34,19 +36,4 @@ const Triangle = ({ classes, figure, index, ...props }) => {
   )
 }
 
-Triangle.propTypes = {
-  onkeydown: PropTypes.func,
-  classes: PropTypes.arrayOf(PropTypes.string),
-  index: PropTypes.number.isRequired,
-  figure: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.string,
-    color: PropTypes.string,
-    position: PropTypes.shape({
-      top: PropTypes.string,
-      left: PropTypes.string,
-    })
-  }).isRequired
-}
-
-export default Triangle
+export default Rectangle

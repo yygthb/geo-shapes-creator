@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
+import React from 'react'
 import style from './Shapes.module.css'
+import { Title } from '../../../../types'
 
-const Shapes = props => {
+type Props = {
+  createFigureHandler: (e: React.MouseEvent, name: Title) => void
+}
+
+const Shapes: React.FC<Props> = props => {
   return (
     <>
       <div
@@ -20,10 +25,6 @@ const Shapes = props => {
       ></div>
     </>
   )
-}
-
-Shapes.propTypes = {
-  createFigureHandler: PropTypes.func
 }
 
 export default Shapes

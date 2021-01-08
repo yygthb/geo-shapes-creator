@@ -1,11 +1,26 @@
 import config from "../../config/config"
 import { KEY_LISTENER_DELETE, GET_ACTIVE_FIGURE, GET_NEW_COLOR_TO_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE, ADD_NEW_FIGURE } from "../actions/actionTypes"
 
-const initialState = {
+type StateType = {
+  fillColor: typeof config.DEFAULT_FILL_COLOR // string - sidebar Fill-button color
+}
+
+type ActionType = {
+  type: string
+  color: string
+  value: {
+    figure: {
+      color: string
+    }
+  }
+  eCode: string // keyboardEvent ecode (Delete)
+}
+
+const initialState: StateType = {
   fillColor: config.DEFAULT_FILL_COLOR
 }
 
-export default function fillColorReducer (state = initialState, action) {
+export default function fillColorReducer (state: StateType = initialState, action: ActionType) {
 
   switch(action.type) {
     case ADD_NEW_FIGURE:

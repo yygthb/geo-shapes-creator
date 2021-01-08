@@ -1,7 +1,14 @@
-import PropTypes from 'prop-types'
+import React from 'react'
+import { FigureType } from '../../../../types'
 import style from './Style.module.css'
 
-const Style = props => {
+type Props = {
+  activeFigure: null | FigureType
+  color: string
+  onColorChange: () => void
+}
+
+const Style: React.FC<Props> = props => {
   // инпут неактивный, если фигура не выбрана
   const disabled = props.activeFigure === null ? true : false
 
@@ -16,7 +23,7 @@ const Style = props => {
         style={{
           backgroundColor: props.color
         }}
-        onClick={e => {
+        onClick={(e: React.MouseEvent) => {
           // остановить "сброс выбранной фигуры"
           e.stopPropagation()
         }}
@@ -24,12 +31,6 @@ const Style = props => {
       />
     </>
   )
-}
-
-Style.propTypes = {
-  activeFigure: PropTypes.object,
-  color: PropTypes.string.isRequired,
-  onColorChange: PropTypes.func
 }
 
 export default Style

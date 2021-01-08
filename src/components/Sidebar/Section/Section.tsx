@@ -1,8 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import style from './Section.module.css'
 
-const Section = props => {
+type Props = {
+  title: string
+}
+
+const Section: React.FC<Props> = props => {
   return (
     <section className={style.section}>
       <h2 className={style.section_title}>
@@ -15,10 +18,6 @@ const Section = props => {
       </div>
     </section>
   )
-}
-
-Section.propTypes = {
-  title: PropTypes.string
 }
 
 export default Section

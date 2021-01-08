@@ -4,9 +4,10 @@ import './normalize.css'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import {createStore, applyMiddleware} from 'redux'
-import {Provider} from 'react-redux'
 import mainReducer from './redux/mainReducer'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { FigureType } from './types'
 import config from './config/config'
 
 // function logger(store) {
@@ -17,8 +18,25 @@ import config from './config/config'
 //   }
 // }
 
-function saveToLocalStorage(store) {
-  return next => action => {
+export type GetStateType = {
+  figuresState: {
+    activeFigure: null | FigureType
+    figures: Array<FigureType>
+    maxId : number
+  }
+  fillColorState: {
+    fillColor: string
+  }
+}
+
+type StoreType = {
+  dispatch: () => void
+  getState: () => GetStateType
+}
+
+// function saveToLocalStorage(store: any) {
+function saveToLocalStorage(store: StoreType) {
+  return (next: any) => (action: any) => {
     const returnValue = next(action)
 
     // сохранение части store в localStorage

@@ -1,42 +1,56 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import style from './App.module.css'
 import Content from './components/Content/Content'
 import Sidebar from './components/Sidebar/Sidebar'
 import { addNewFigure, getactiveFigure, resetActiveFigure, onSavePosition, getNewColorToFigure, onDeleteKeyDownListener } from './redux/actions/actionCreators'
+import { FigureType, GetActiveFigureType } from './types'
+import { GetStateType } from './index'
 
-function App(props) {
+type Props = {
+  activeFigure: null | FigureType
+  fillColor: string
+  figures: Array<FigureType>
+
+  addNewFigure: (name: string) => void
+  resetActiveFigure: () => void
+  getActiveFigure: (obj: GetActiveFigureType) => void
+  onSavePosition: (index: number, top: string, left: string) => void
+  getNewColorToFigure: (color: string) => void
+  onDeleteKeyDownListener: (eCode: string, index: number) => void
+}
+
+const App: React.FC<Props> = (props) => {
 
   // добавление фигуры в рабочую область приложения
-  const createFigureHandler = (e, name) => {
+  const createFigureHandler = (e: React.MouseEvent, name: string) => {
     e.stopPropagation()
     props.addNewFigure(name)
   }
 
   // события по клику на фигуру в рабочей области
-  const onFigureClickHandler = (e, figure, index) => {
+  const onFigureClickHandler = (e: React.MouseEvent, figure: FigureType, index: number) => {
     e.stopPropagation()
-    props.getActiveFigure({ figure, index })
+    props.getActiveFigure({figure, index})
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
-  const onChangePositionHandler = (index, top, left) => {
+  const onChangePositionHandler = (index: number, top: string, left: string) => {
     props.onSavePosition(index, top, left)
   }
 
   // сбросить выделение активной фигуры
-  const resetActiveFigure = (e) => {
+  const resetActiveFigure = () => {
     props.resetActiveFigure()
   }
 
   // Color Picker
-  const onColorChange = e => {
-    props.getNewColorToFigure(e.target.value)
+  const onColorChange = (e: React.FormEvent<HTMLInputElement>) => {
+    props.getNewColorToFigure(e.currentTarget.value)
   }
 
   // Удаление выделенной фигуры по нажатию на кнопку клавиатуры
-  const onKeyDown = (e, index) => {
+  const onKeyDown = (e: React.KeyboardEvent, index: number) => {
     props.onDeleteKeyDownListener(e.code, index)
   }
 
@@ -61,21 +75,7 @@ function App(props) {
   )
 }
 
-App.propTypes = {
-  activeFigure: PropTypes.object,
-  fillColor: PropTypes.string.isRequired,
-  figures: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.string,
-    color: PropTypes.string,
-    position: PropTypes.shape({
-      top: PropTypes.string,
-      left: PropTypes.string,
-    }),
-  })).isRequired
-}
-
-const mapStateToProps = state => {
+const mapStateToProps = (state: GetStateType) => {
   return {
     figures: state.figuresState.figures,
     maxId: state.figuresState.maxId,
@@ -84,14 +84,14 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    addNewFigure: name => dispatch(addNewFigure(name)),
-    getActiveFigure: value => dispatch(getactiveFigure(value)),
+    addNewFigure: (name: string) => dispatch(addNewFigure(name)),
+    getActiveFigure: (value: GetActiveFigureType) => dispatch(getactiveFigure(value)),
     resetActiveFigure: () => dispatch(resetActiveFigure()),
-    onSavePosition: (index, top, left) => dispatch(onSavePosition(index, top, left)),
-    getNewColorToFigure: (color) => dispatch(getNewColorToFigure(color)),
-    onDeleteKeyDownListener: (eCode, index) => dispatch(onDeleteKeyDownListener(eCode, index)),
+    onSavePosition: (index: number, top: string, left: string) => dispatch(onSavePosition(index, top, left)),
+    getNewColorToFigure: (color: string) => dispatch(getNewColorToFigure(color)),
+    onDeleteKeyDownListener: (eCode: string, index: number) => dispatch(onDeleteKeyDownListener(eCode, index)),
   }
 }
 
