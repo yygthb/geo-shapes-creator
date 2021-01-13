@@ -5,7 +5,7 @@ import style from './Style.module.css'
 type Props = {
   activeFigure: null | FigureType
   color: string
-  onColorChange: () => void
+  onColorChange: (e: React.FormEvent<HTMLInputElement>) => void
 }
 
 const Style: React.FC<Props> = props => {
@@ -15,7 +15,7 @@ const Style: React.FC<Props> = props => {
   return (
     <>
       <label className={style.property}>Fill</label>
-      <input type="color" 
+      <input type="color"
         disabled={disabled}
         className={style.input}
         title="Color Picker"

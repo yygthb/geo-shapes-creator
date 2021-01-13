@@ -1,8 +1,11 @@
 import React from 'react'
-import { FigureType } from '../../types'
+import { connect } from 'react-redux'
+import { GetStateType } from '../..'
+import { FigureType, GetActiveFigureType } from '../../types'
 import Rectangle from '../Figures/Rectangle'
 import Triangle from '../Figures/Triangle'
 import style from './Content.module.css'
+import { getactiveFigure, resetActiveFigure, onSavePosition, onDeleteKeyDownListener } from '../../redux/actions/actionCreators'
 
 // вычисление центра "рабочей области" - позиционирование фигуры относительно этого центра
 const getMidCoordinates = (el: any) => {
@@ -18,23 +21,38 @@ type Props = {
   activeFigure: null | FigureType
   figures: Array<FigureType>
 
-  resetActiveFigure: (e: React.MouseEvent) => void
-  onKeyDown: (e: any, index: any) => void
-  onFigureClickHandler: (e: React.MouseEvent, figure: FigureType, index: number) => void
-  onChangePositionHandler: (index: number, top: string, left: string) => void
+  resetActiveFigure: () => void
+  getActiveFigure: (obj: GetActiveFigureType) => void
+  onSavePosition: (index: number, top: string, left: string) => void
+  onDeleteKeyDownListener: (eCode: string, index: number) => void
 }
 
 const Content: React.FC<Props> = props => {
-  // const activeId = props.activeFigure !== null ? props.activeFigure.id : 0
   let activeId: number = 0
   if (props.activeFigure !== null) {
     activeId = props.activeFigure.zIndexCSS
   }
   const contentRef = React.createRef<HTMLDivElement>()
 
+  // события по клику на фигуру в рабочей области
+  const onFigureClickHandler = (e: React.MouseEvent, figure: FigureType, index: number) => {
+    e.stopPropagation()
+    props.getActiveFigure({ figure, index })
+  }
+
+  // Удаление выделенной фигуры по нажатию на кнопку клавиатуры (Delete)
+  const onKeyDown = (e: React.KeyboardEvent, index: number) => {
+    props.onDeleteKeyDownListener(e.code, index)
+  }
+
+  // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
+  const onChangePositionHandler = (index: number, top: string, left: string) => {
+    props.onSavePosition(index, top, left)
+  }
+
   // const onMouseDown = (e, figure, index) => {
   const onMouseDown: any = (e: React.MouseEvent, figure: FigureType, index: number) => {
-    props.onFigureClickHandler(e, figure, index)
+    onFigureClickHandler(e, figure, index)
 
     // центр области Content
     const [midY, midX] = getMidCoordinates(contentRef.current)
@@ -60,7 +78,7 @@ const Content: React.FC<Props> = props => {
       // сохранить позицию фигуры
       const top = target.style.top
       const left = target.style.left
-      props.onChangePositionHandler(index, top, left)
+      onChangePositionHandler(index, top, left)
       target.onmouseup = null
     };
   }
@@ -69,7 +87,7 @@ const Content: React.FC<Props> = props => {
     <div
       className={style.content}
       ref={contentRef}
-      onClick={e => props.resetActiveFigure(e)}
+      onClick={e => props.resetActiveFigure()}
     >
       <div className={style.content_mid}>
         {
@@ -89,8 +107,8 @@ const Content: React.FC<Props> = props => {
                   index={index}
                   figure={figure}
                   onMouseDown={onMouseDown}
-                  onFigureClickHandler={props.onFigureClickHandler}
-                  onKeyDown={props.onKeyDown}
+                  onFigureClickHandler={onFigureClickHandler}
+                  onKeyDown={onKeyDown}
                 />
                 :
                 // прямоугольники
@@ -101,8 +119,8 @@ const Content: React.FC<Props> = props => {
                     index={index}
                     figure={figure}
                     onMouseDown={onMouseDown}
-                    onFigureClickHandler={props.onFigureClickHandler}
-                    onKeyDown={props.onKeyDown}
+                    onFigureClickHandler={onFigureClickHandler}
+                    onKeyDown={onKeyDown}
                   />
                   :
                   // в остальных случаях:
@@ -115,4 +133,20 @@ const Content: React.FC<Props> = props => {
   )
 }
 
-export default Content
+const mapStateToProps = (state: GetStateType) => {
+  return {
+    figures: state.figuresState.figures,
+    activeFigure: state.figuresState.activeFigure,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getActiveFigure: (value: GetActiveFigureType) => dispatch(getactiveFigure(value)),
+    resetActiveFigure: () => dispatch(resetActiveFigure()),
+    onSavePosition: (index: number, top: string, left: string) => dispatch(onSavePosition(index, top, left)),
+    onDeleteKeyDownListener: (eCode: string, index: number) => dispatch(onDeleteKeyDownListener(eCode, index)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content)
