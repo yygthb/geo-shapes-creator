@@ -1,5 +1,5 @@
 import config from "../../config/config"
-import { KEY_LISTENER_DELETE, GET_ACTIVE_FIGURE, GET_NEW_COLOR_TO_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE, ADD_NEW_FIGURE } from "../actions/actionTypes"
+import { KEY_LISTENER_DELETE, GET_ACTIVE_FIGURE, GET_NEW_COLOR_TO_ACTIVE_FIGURE, RESET_ACTIVE_FIGURE } from "../actions/actionTypes"
 
 type StateType = {
   fillColor: typeof config.DEFAULT_FILL_COLOR // string - sidebar Fill-button color
@@ -20,13 +20,9 @@ const initialState: StateType = {
   fillColor: config.DEFAULT_FILL_COLOR
 }
 
-export default function fillColorReducer (state: StateType = initialState, action: ActionType) {
+export default function fillColorReducer(state: StateType = initialState, action: ActionType) {
 
-  switch(action.type) {
-    case ADD_NEW_FIGURE:
-      return {
-        fillColor: config.DEFAULT_FIGURE_COLOR
-      }
+  switch (action.type) {
     case RESET_ACTIVE_FIGURE:
       return {
         fillColor: config.DEFAULT_FILL_COLOR

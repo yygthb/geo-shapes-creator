@@ -22,7 +22,7 @@ export type GetStateType = {
   figuresState: {
     activeFigure: null | FigureType
     figures: Array<FigureType>
-    maxId : number
+    maxId: number
   }
   fillColorState: {
     fillColor: string

@@ -37,7 +37,7 @@ const initialState: StateType = localStorage.getItem(config.LOCAL_STORAGE_FIGURE
 export default function figuresReducer(state = initialState, action: ActionType) {
 
   switch (action.type) {
-    case ADD_NEW_FIGURE: 
+    case ADD_NEW_FIGURE:
       const newFigure = {
         id: state.maxId + 1,
         type: action.name,
@@ -50,16 +50,14 @@ export default function figuresReducer(state = initialState, action: ActionType)
       return {
         ...state,
         maxId: state.maxId + 1,
-        activeFigure: newFigure,
         figures: [...state.figures, newFigure],
       }
 
-    case GET_ACTIVE_FIGURE: 
+    case GET_ACTIVE_FIGURE:
       if (action.value.figure.id < state.maxId) {
         const figures = state.figures
         figures[action.value.index].id = state.maxId + 1
         return {
-          ...state,
           figures: figures,
           maxId: state.maxId + 1,
           activeFigure: action.value.figure
@@ -76,7 +74,7 @@ export default function figuresReducer(state = initialState, action: ActionType)
         activeFigure: null
       }
 
-    case SAVE_POSITION: 
+    case SAVE_POSITION:
       const figures = state.figures
       figures[action.index].position.top = action.top
       figures[action.index].position.left = action.left
@@ -85,7 +83,7 @@ export default function figuresReducer(state = initialState, action: ActionType)
         figures: figures
       }
 
-    case GET_NEW_COLOR_TO_ACTIVE_FIGURE: 
+    case GET_NEW_COLOR_TO_ACTIVE_FIGURE:
       const activeFigureId = state.activeFigure!.id
       return {
         ...state,
@@ -97,7 +95,7 @@ export default function figuresReducer(state = initialState, action: ActionType)
         })]
       }
 
-    case KEY_LISTENER_DELETE: 
+    case KEY_LISTENER_DELETE:
       if (action.eCode === config.DELETE_KEY_DOWN) {
         const figures = state.figures
         figures.splice(action.index, 1)

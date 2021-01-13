@@ -24,14 +24,14 @@ const App: React.FC<Props> = (props) => {
 
   // добавление фигуры в рабочую область приложения
   const createFigureHandler = (e: React.MouseEvent, name: string) => {
-    e.stopPropagation()
+    // e.stopPropagation()
     props.addNewFigure(name)
   }
 
   // события по клику на фигуру в рабочей области
   const onFigureClickHandler = (e: React.MouseEvent, figure: FigureType, index: number) => {
     e.stopPropagation()
-    props.getActiveFigure({figure, index})
+    props.getActiveFigure({ figure, index })
   }
 
   // переписывать позиционирование двигаемой фигуры (для последующей записи в localstorage)
