@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/geo-shapes-creator/static/css/main.6779ec14.chunk.css",
-    "main.js": "/geo-shapes-creator/static/js/main.50515836.chunk.js",
-    "main.js.map": "/geo-shapes-creator/static/js/main.50515836.chunk.js.map",
-    "runtime-main.js": "/geo-shapes-creator/static/js/runtime-main.7d439edc.js",
-    "runtime-main.js.map": "/geo-shapes-creator/static/js/runtime-main.7d439edc.js.map",
-    "static/js/2.8569f5e2.chunk.js": "/geo-shapes-creator/static/js/2.8569f5e2.chunk.js",
-    "static/js/2.8569f5e2.chunk.js.map": "/geo-shapes-creator/static/js/2.8569f5e2.chunk.js.map",
-    "static/js/3.8de1e665.chunk.js": "/geo-shapes-creator/static/js/3.8de1e665.chunk.js",
-    "static/js/3.8de1e665.chunk.js.map": "/geo-shapes-creator/static/js/3.8de1e665.chunk.js.map",
+    "main.css": "/geo-shapes-creator/static/css/main.9e45595d.chunk.css",
+    "main.js": "/geo-shapes-creator/static/js/main.768b8efc.chunk.js",
+    "main.js.map": "/geo-shapes-creator/static/js/main.768b8efc.chunk.js.map",
+    "runtime-main.js": "/geo-shapes-creator/static/js/runtime-main.a662f519.js",
+    "runtime-main.js.map": "/geo-shapes-creator/static/js/runtime-main.a662f519.js.map",
+    "static/js/2.db5f650f.chunk.js": "/geo-shapes-creator/static/js/2.db5f650f.chunk.js",
+    "static/js/2.db5f650f.chunk.js.map": "/geo-shapes-creator/static/js/2.db5f650f.chunk.js.map",
+    "static/js/3.2a51bbf8.chunk.js": "/geo-shapes-creator/static/js/3.2a51bbf8.chunk.js",
+    "static/js/3.2a51bbf8.chunk.js.map": "/geo-shapes-creator/static/js/3.2a51bbf8.chunk.js.map",
     "index.html": "/geo-shapes-creator/index.html",
-    "static/css/main.6779ec14.chunk.css.map": "/geo-shapes-creator/static/css/main.6779ec14.chunk.css.map",
-    "static/js/2.8569f5e2.chunk.js.LICENSE.txt": "/geo-shapes-creator/static/js/2.8569f5e2.chunk.js.LICENSE.txt"
+    "static/css/main.9e45595d.chunk.css.map": "/geo-shapes-creator/static/css/main.9e45595d.chunk.css.map",
+    "static/js/2.db5f650f.chunk.js.LICENSE.txt": "/geo-shapes-creator/static/js/2.db5f650f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.7d439edc.js",
-    "static/js/2.8569f5e2.chunk.js",
-    "static/css/main.6779ec14.chunk.css",
-    "static/js/main.50515836.chunk.js"
+    "static/js/runtime-main.a662f519.js",
+    "static/js/2.db5f650f.chunk.js",
+    "static/css/main.9e45595d.chunk.css",
+    "static/js/main.768b8efc.chunk.js"
   ]
 }
