@@ -4,7 +4,7 @@ import { FigureType } from '../../types'
 
 type StateType = {
   figures: Array<FigureType>
-  maxId: number
+  maxZIndexCSS: number
   activeFigure: null | FigureType
 }
 
@@ -25,12 +25,12 @@ type ActionType = {
 const initialState: StateType = localStorage.getItem(config.LOCAL_STORAGE_FIGURE)
   ? {
     figures: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE) || '{}').figures,
-    maxId: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE) || '{}').maxId,
+    maxZIndexCSS: JSON.parse(localStorage.getItem(config.LOCAL_STORAGE_FIGURE) || '{}').maxZIndexCSS,
     activeFigure: null,
   }
   : {
     figures: [],
-    maxId: 0,
+    maxZIndexCSS: 0,
     activeFigure: null,
   }
 
@@ -39,7 +39,7 @@ export default function figuresReducer(state = initialState, action: ActionType)
   switch (action.type) {
     case ADD_NEW_FIGURE:
       const newFigure = {
-        id: state.maxId + 1,
+        zIndexCSS: state.maxZIndexCSS + 1,
         type: action.name,
         color: config.DEFAULT_FIGURE_COLOR,
         position: {
@@ -49,17 +49,17 @@ export default function figuresReducer(state = initialState, action: ActionType)
       }
       return {
         ...state,
-        maxId: state.maxId + 1,
+        maxZIndexCSS: state.maxZIndexCSS + 1,
         figures: [...state.figures, newFigure],
       }
 
     case GET_ACTIVE_FIGURE:
-      if (action.value.figure.id < state.maxId) {
+      if (action.value.figure.zIndexCSS < state.maxZIndexCSS) {
         const figures = state.figures
-        figures[action.value.index].id = state.maxId + 1
+        figures[action.value.index].zIndexCSS = state.maxZIndexCSS + 1
         return {
           figures: figures,
-          maxId: state.maxId + 1,
+          maxZIndexCSS: state.maxZIndexCSS + 1,
           activeFigure: action.value.figure
         }
       }
@@ -84,11 +84,11 @@ export default function figuresReducer(state = initialState, action: ActionType)
       }
 
     case GET_NEW_COLOR_TO_ACTIVE_FIGURE:
-      const activeFigureId = state.activeFigure!.id
+      const activeFigureId = state.activeFigure!.zIndexCSS
       return {
         ...state,
         figures: [...state.figures.map(f => {
-          if (f.id === activeFigureId) {
+          if (f.zIndexCSS === activeFigureId) {
             return { ...f, color: action.color }
           }
           return f
@@ -102,7 +102,7 @@ export default function figuresReducer(state = initialState, action: ActionType)
         if (figures.length === 0) {
           return {
             figures: [],
-            maxId: 0,
+            maxZIndexCSS: 0,
             activeFigure: null,
           }
         }

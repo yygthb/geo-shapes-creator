@@ -78,7 +78,7 @@ const App: React.FC<Props> = (props) => {
 const mapStateToProps = (state: GetStateType) => {
   return {
     figures: state.figuresState.figures,
-    maxId: state.figuresState.maxId,
+    maxZIndexCSS: state.figuresState.maxZIndexCSS,
     activeFigure: state.figuresState.activeFigure,
     fillColor: state.fillColorState.fillColor,
   }

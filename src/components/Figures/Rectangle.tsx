@@ -8,16 +8,16 @@ const Rectangle: React.FC<FigurePropsType> = ({ classes, figure, index, ...props
   return (
     <svg width="200" height="100"
       className={classes.join(' ')}
-      id={`${style[figure.type]}_${figure.id}`}
+      id={`${style[figure.type]}_${figure.zIndexCSS}`}
       style={{
-        zIndex: figure.id,
+        zIndex: figure.zIndexCSS,
         top: figure.position.top,
         left: figure.position.left
       }}
     >
       <rect x="0" y="0" width="200" height="100"
         fill={figure.color || 'grey'}
-        className={`${style[figure.type]}_${figure.id}`}
+        className={`${style[figure.type]}_${figure.zIndexCSS}`}
         style={{
           cursor: 'pointer',
           outline: 'none',

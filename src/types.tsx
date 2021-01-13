@@ -1,7 +1,7 @@
 export type Title = 'triangle' | 'rectangle'
 
 export type FigureType = {
-  id: number
+  zIndexCSS: number
   type: Title
   color: string
   position: {

@@ -28,7 +28,7 @@ const Content: React.FC<Props> = props => {
   // const activeId = props.activeFigure !== null ? props.activeFigure.id : 0
   let activeId: number = 0
   if (props.activeFigure !== null) {
-    activeId = props.activeFigure.id
+    activeId = props.activeFigure.zIndexCSS
   }
   const contentRef = React.createRef<HTMLDivElement>()
 
@@ -76,7 +76,7 @@ const Content: React.FC<Props> = props => {
           props.figures.map((figure, index) => {
             const classes = [style[figure.type]]
             // добавление border'a к выделенной фигуре
-            if (figure.id === activeId) {
+            if (figure.zIndexCSS === activeId) {
               classes.push(style.active)
             }
 
